@@ -15,12 +15,9 @@
         <logger name="org.example" level="info" additivity="false">
             <AppenderRef ref="console"/>
         </logger>
-
         <logger name="org.example.dao" level="debug" additivity="false">
             <AppenderRef ref="console"/>
         </logger>
-
-
 
     </loggers>
 
