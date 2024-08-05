@@ -8,6 +8,6 @@
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello gpgpg</a>
+<a href="hello-servlet">흐흫헤</a>
 </body>
 </html>
