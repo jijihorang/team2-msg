@@ -1,0 +1,27 @@
+<configuration status="error">
+
+    <Appenders>
+        <!-- console -->
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n"/>
+        </Console>
+    </Appenders>
+
+    <loggers>
+        <root level="info" additivity="true">
+            <AppenderRef ref="console"/>
+        </root>
+
+        <logger name="org.example" level="info" additivity="false">
+            <AppenderRef ref="console"/>
+        </logger>
+
+        <logger name="org.example.dao" level="debug" additivity="false">
+            <AppenderRef ref="console"/>
+        </logger>
+
+
+
+    </loggers>
+
+</configuration>
