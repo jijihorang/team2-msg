@@ -22,19 +22,26 @@ public class ProfessorloginController extends HttpServlet {
         String pid = req.getParameter("ID");
         String ppw = req.getParameter("PASSWORD");
 
+        log.info("Received login request with ID: {} and PASSWORD: {}", pid, ppw);
+
         //DB에서 사용자 정보를 확인해 정보를 얻어오기
         try {
             Optional<ProfessorVO> result = ProfessorDAO.INSTANCE.get(pid, ppw);
             result.ifPresentOrElse( professorVO -> {
-                Cookie loginCookie = new Cookie("Profid",pid);
-                loginCookie.setPath("/");
-                loginCookie.setMaxAge(60*60*24);
 
-                resp.addCookie(loginCookie);
-                log.info("Received login request with ID: {} and PASSWORD: {}", pid, ppw);
+                ProfessorVO professor = result.get();
+                HttpSession session = req.getSession();
+                session.setAttribute("professorId",professorVO.getPid());
+                session.setAttribute("professorEmail", professor.getPmail());
+
+                //쿠키 나중에 쓸데 있으면 사용하는걸로
+                //Cookie loginCookie = new Cookie("Profid",pid);
+                //loginCookie.setPath("/");
+                //loginCookie.setMaxAge(60*60*24);
+                //resp.addCookie(loginCookie);
 
                 try {
-                    log.info("SUCCEEDDDDDDDD LOIGIUN");
+                    log.info("Login successful for professor ID: {}", professor.getPid());
                     resp.sendRedirect("/proflist");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
