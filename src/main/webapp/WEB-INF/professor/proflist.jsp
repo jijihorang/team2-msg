@@ -8,10 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ProfList</title>
+    <title>Title</title>
 </head>
 <body>
-    <h3>안녕하세요, 교수 ${member.uid}님</h3>
-    <li></li>
+
 </body>
 </html>

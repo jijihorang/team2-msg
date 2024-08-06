@@ -17,11 +17,11 @@ public enum ProfessorDAO {
         String query = """
                 select * from tbl_member
                 where
-                    (uid = ? or email = ?)
+                    (pid = ? or pmail = ?)
                 and
-                    upw = ?
+                    ppw = ?
                 and
-                    delflag = false
+                    delFlag = false
                 """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
@@ -40,7 +40,7 @@ public enum ProfessorDAO {
                 .pid(rs.getString("pid"))
                 .ppw(rs.getString("ppw"))
                 .pmail(rs.getString("pmail"))
-                .delflag(rs.getBoolean("delflag"))
+                .delflag(rs.getBoolean("delFlag"))
                 .build();
 
         return Optional.of(member);
