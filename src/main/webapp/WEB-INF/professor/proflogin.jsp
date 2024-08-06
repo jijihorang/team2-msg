@@ -61,11 +61,11 @@
     <%
         }
     %>
-    <form action="loginServlet" method="post">
+    <form action="/proflogin" method="post">
         <label for="username">사용자 이름</label>
-        <input type="text" id="username" name="username" required>
+        <input type="text" id="username" name="ID" required>  <%--ID, PASSWORD --%>
         <label for="password">비밀번호</label>
-        <input type="password" id="password" name="password" required>
+        <input type="password" id="password" name="PASSWORD" required>
         <input type="submit" value="로그인">
     </form>
 </div>

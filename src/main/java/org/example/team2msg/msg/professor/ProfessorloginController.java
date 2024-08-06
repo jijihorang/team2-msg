@@ -19,27 +19,29 @@ public class ProfessorloginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String id = req.getParameter("ID");
-        String pw = req.getParameter("PASSWORD");
-
+        String pid = req.getParameter("ID");
+        String ppw = req.getParameter("PASSWORD");
 
         //DB에서 사용자 정보를 확인해 정보를 얻어오기
         try {
-            Optional<ProfessorVO> result = ProfessorDAO.INSTANCE.get(id, pw);
-            result.ifPresentOrElse( memberVO -> {
-                Cookie loginCookie = new Cookie("Profid",id);
+            Optional<ProfessorVO> result = ProfessorDAO.INSTANCE.get(pid, ppw);
+            result.ifPresentOrElse( professorVO -> {
+                Cookie loginCookie = new Cookie("Profid",pid);
                 loginCookie.setPath("/");
                 loginCookie.setMaxAge(60*60*24);
 
                 resp.addCookie(loginCookie);
+                log.info("Received login request with ID: {} and PASSWORD: {}", pid, ppw);
 
                 try {
+                    log.info("SUCCEEDDDDDDDD LOIGIUN");
                     resp.sendRedirect("/proflist");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }, () -> {
                 try {
+                    log.info("FAILED LOGIN");
                     resp.sendRedirect("/proflogin");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
