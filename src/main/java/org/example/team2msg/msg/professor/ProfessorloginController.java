@@ -31,7 +31,7 @@ public class ProfessorloginController extends HttpServlet {
 
                 ProfessorVO professor = result.get();
                 HttpSession session = req.getSession();
-                session.setAttribute("professorId",professorVO.getPid());
+                session.setAttribute("professorId",professor.getPid());
                 session.setAttribute("professorEmail", professor.getPmail());
 
                 //쿠키 나중에 쓸데 있으면 사용하는걸로

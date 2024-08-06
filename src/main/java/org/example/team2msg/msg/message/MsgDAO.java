@@ -64,7 +64,7 @@ public enum MsgDAO {
 
         final String sql = """
                 select
-                    mno, sender, receiver, title, content, senddate
+                    mno, sender, receiver, title, content, senddate, is_read, is_broadcast
                 from
                     tbl_message
                 where
@@ -75,6 +75,7 @@ public enum MsgDAO {
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setInt(1, mno);
+        ps.setString(2, receiver);
 
         @Cleanup ResultSet rs = ps.executeQuery();
 
@@ -85,13 +86,15 @@ public enum MsgDAO {
         MsgVO detail = MsgVO.builder()
                 .mno(rs.getInt("mno"))
                 .sender(rs.getString("sender"))
+                .receiver(rs.getString("receiver"))
                 .title(rs.getString("title"))
                 .content(rs.getString("content"))
                 .senddate(rs.getTimestamp("senddate"))
+                .is_read(rs.getBoolean("is_read"))
+                .is_broadcast(rs.getBoolean("is_broadcast"))
                 .build();
 
         return Optional.of(detail);
-
     }
 
     // 쪽지 발송

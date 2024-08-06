@@ -123,7 +123,9 @@
                 <li class="stl-message2">
                     <span class="stl-index">${status.count}.</span>
                     <span class="stl-name">${message.sender}</span>
-                    <span class="stl-title">${message.title}</span>
+                    <span class="stl-title">
+                        <a href="/detail?messageId=${message.mno}">${message.title}</a>
+                    </span>
                     <span class="stl-status">
                         <c:choose>
                             <c:when test="${message.is_read}">
