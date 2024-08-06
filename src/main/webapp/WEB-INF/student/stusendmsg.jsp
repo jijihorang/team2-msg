@@ -56,12 +56,14 @@
         }
 
         .sem-input-group input,
-        .sem-input-group textarea {
-            width: 95%;
+        .sem-input-group textarea,
+        .sem-input-group select {
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
 
         .sem-button-group {
@@ -88,7 +90,18 @@
             background-color: #ccc;
             color: black;
         }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
+    <script>
+        function setReceiver(value) {
+            document.getElementById('receiver').value = value;
+        }
+    </script>
 </head>
 <body>
 <div class="sem-container">
@@ -102,8 +115,20 @@
                 <input type="text" id="title" name="title" required>
             </div>
             <div class="sem-input-group">
-                <label for="sender">RECEIVER</label>
-                <input type="text" id="sender" name="sender" required>
+                <label for="receiver">RECEIVER</label>
+                <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
+                    <option value="" selected disabled></option>
+                    <optgroup label="Students">
+                        <c:forEach var="student" items="${studentList}">
+                            <option value="${student}">${student}</option>
+                        </c:forEach>
+                    </optgroup>
+                    <optgroup label="Professors">
+                        <c:forEach var="professor" items="${professorList}">
+                            <option value="${professor}">${professor}</option>
+                        </c:forEach>
+                    </optgroup>
+                </select>
             </div>
             <div class="sem-input-group">
                 <label for="content">CONTENT</label>
@@ -113,6 +138,9 @@
                 <button type="submit" class="primary">Send</button>
                 <a href="/studentlist"><button type="button" class="secondary">List</button></a>
             </div>
+            <c:if test="${not empty param.error}">
+                <div class="error-message">${param.error}</div>
+            </c:if>
         </form>
     </div>
 </div>

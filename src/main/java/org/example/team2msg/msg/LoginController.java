@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
         try {
             Optional<StudentVO> result = StudentDAO.INSTANCE.get(sid, spw);
             result.ifPresentOrElse(studentVO -> {
-                session.setAttribute("sid", studentVO);
+                session.setAttribute("student", studentVO);
                 try {
                     resp.sendRedirect("/studentlist"); // 로그인 성공 시 studentlist로 리다이렉트 !
                 } catch (Exception e) {

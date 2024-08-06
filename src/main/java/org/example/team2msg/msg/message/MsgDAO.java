@@ -147,4 +147,69 @@ public enum MsgDAO {
         return mno;
 
     }
+
+    // 학생 목록 가져오기
+    public List<String> getStudentList() throws Exception {
+        String sql = "SELECT sid FROM tbl_student";
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+        @Cleanup ResultSet rs = ps.executeQuery();
+
+        List<String> studentList = new ArrayList<>();
+
+        while (rs.next()) {
+            studentList.add(rs.getString("sid"));
+        }
+
+        return studentList;
+    }
+
+    // 교수 목록 가져오기
+    public List<String> getProfessorList() throws Exception {
+        String sql = "SELECT pid FROM tbl_professor";
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+        @Cleanup ResultSet rs = ps.executeQuery();
+
+        List<String> professorList = new ArrayList<>();
+
+        while (rs.next()) {
+            professorList.add(rs.getString("pid"));
+        }
+
+        return professorList;
+    }
+
+    // 메시지 전송
+    public Integer sendMessage2(MsgVO msg) throws Exception {
+        String query = """
+            insert into tbl_message (receiver, title, content, sender, senddate, is_read, is_broadcast)
+            values (?, ?, ?, ?, NOW(), ?, ?)
+            """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setString(1, msg.getReceiver());
+        pst.setString(2, msg.getTitle());
+        pst.setString(3, msg.getContent());
+        pst.setString(4, msg.getSender());
+        pst.setBoolean(5, msg.isIs_read());
+        pst.setBoolean(6, msg.isIs_broadcast());
+
+        int count = pst.executeUpdate();
+
+        if (count != 1) {
+            throw new Exception("Message sending failed");
+        }
+
+        pst = con.prepareStatement("select last_insert_id()");
+        @Cleanup ResultSet rst = pst.executeQuery();
+
+        rst.next();
+        return rst.getInt(1);
+    }
+
 }
