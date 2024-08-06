@@ -36,10 +36,10 @@ public enum ProfessorDAO {
             return Optional.empty();
         }
         ProfessorVO member = ProfessorVO.builder()
-                .pno(rs.getInt("mno"))
-                .pid(rs.getString("uid"))
-                .ppw(rs.getString("upw"))
-                .pmail(rs.getString("email"))
+                .pno(rs.getInt("pno"))
+                .pid(rs.getString("pid"))
+                .ppw(rs.getString("ppw"))
+                .pmail(rs.getString("pmail"))
                 .delflag(rs.getBoolean("delflag"))
                 .build();
 
