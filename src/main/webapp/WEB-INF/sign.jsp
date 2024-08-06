@@ -18,6 +18,8 @@
         .sign-container {
             display: flex;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%; /* 화면의 80%를 차지하도록 설정 */
+            height: 80%; /* 화면의 80%를 차지하도록 설정 */
         }
 
         .sign-left {
@@ -27,6 +29,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            flex: 1; /* 화면의 절반을 차지하도록 설정 */
         }
 
         .sign-secure-section {
@@ -34,18 +37,19 @@
         }
 
         .sign-secure-section .sign-icon img {
-            width: 100px;
-            height: 100px;
+            width: 150px; /* 아이콘 크기 조정 */
+            height: 150px; /* 아이콘 크기 조정 */
         }
 
         .sign-right {
             background-color: #0044cc;
             color: white;
-            padding: 40px;
+            padding: 60px; /* 패딩을 좀 더 넓게 설정 */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            flex: 1; /* 화면의 절반을 차지하도록 설정 */
         }
 
         h1 {
@@ -53,7 +57,8 @@
         }
 
         form {
-            width: 300px;
+            width: 100%; /* 폼의 너비를 100%로 설정 */
+            max-width: 400px; /* 최대 너비를 400px로 설정 */
         }
 
         .sign-input-group {
@@ -86,6 +91,7 @@
             color: black;
             margin-bottom: 10px;
         }
+
     </style>
 </head>
 <body>
@@ -99,7 +105,7 @@
         </div>
     </div>
     <div class="sign-right">
-        <h1> </h1>
+        <h1>Welcome !</h1>
         <form action="/sign" method="post">
             <div class="sign-input-group">
                 <label for="id">ID</label>

@@ -114,7 +114,7 @@
 <div class="stls-container">
     <div class="stls-left">
         <h2>안녕하세요<br>학생 JIHO 님</h2>
-        <button>쪽지 쓰기</button>
+        <a href="/student/sendmsg"> <button>쪽지 쓰기</button> </a>
     </div>
     <div class="stls-right">
         <div class="stls-tabs">
