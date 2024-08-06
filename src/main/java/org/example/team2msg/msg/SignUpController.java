@@ -23,8 +23,8 @@ public class SignUpController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String sid = request.getParameter("sid");
-        String smail = request.getParameter("smail");
-        String spw = request.getParameter("spw");
+        String smail = request.getParameter("email");
+        String spw = request.getParameter("password");
 
         try {
             // 중복 확인

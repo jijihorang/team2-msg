@@ -93,6 +93,7 @@
             color: white;
         }
     </style>
+    <link rel="icon" href="data:,">
 </head>
 <body>
 <div class="container">
@@ -108,8 +109,8 @@
         <h1>Welcome !</h1>
         <form action="/login" method="post">
             <div class="input-group">
-                <label for="id">ID</label>
-                <input type="text" id="id" name="id" required>
+                <label for="sid">ID</label>
+                <input type="text" id="sid" name="sid" required>
             </div>
             <div class="input-group">
                 <label for="password">PASSWORD</label>

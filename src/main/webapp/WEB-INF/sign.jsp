@@ -33,7 +33,7 @@
             text-align: center;
         }
 
-        .sign-secure-section .sing-icon img {
+        .sign-secure-section .sign-icon img {
             width: 100px;
             height: 100px;
         }
@@ -113,7 +113,7 @@
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
             </div>
-           <a href="/login"> <button type="button" class="sign-sign-in">Sign in</button></a>
+            <button type="submit" class="sign-sign-in">Sign Up</button>
         </form>
     </div>
 </div>

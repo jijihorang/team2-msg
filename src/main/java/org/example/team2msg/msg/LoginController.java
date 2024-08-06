@@ -32,37 +32,35 @@ public class LoginController extends HttpServlet {
         String sid = req.getParameter("sid");
         log.info(sid);
 
-        String spw = req.getParameter("spw");
+        String spw = req.getParameter("password");
         log.info(spw);
 
-
-        // JESSION_ID가 세션 장소에 있으면 반환 / 없으면 생성
+        // JSESSION_ID가 세션 장소에 있으면 반환 / 없으면 생성
         HttpSession session = req.getSession();
-
 
         // DB에서 해당 사용자 정보 확인 후 사용자 정보 얻어오기
         // 람다식(ifPresentOrElse) 사용
         try {
             Optional<StudentVO> result = StudentDAO.INSTANCE.get(sid, spw);
-            result.ifPresentOrElse(  studentVO -> {
+            result.ifPresentOrElse(studentVO -> {
                 session.setAttribute("sid", studentVO);
                 try {
-                    resp.sendRedirect("/studentList"); // 로그인 성공 시 mypage로 리다이렉트 !
+                    resp.sendRedirect("/studentlist"); // 로그인 성공 시 mypage로 리다이렉트 !
                 } catch (Exception e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
             }, () -> {
                 try {
+                    log.info("Login failed");
                     resp.sendRedirect("/login");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            } ); // 1번은 값이 있는 함수 / 2번은 아무 것도 없는 함수
+            }); // 1번은 값이 있는 함수 / 2번은 아무 것도 없는 함수
 
         } catch (Exception e) {
+            log.error("Error login", e);
             throw new RuntimeException(e);
         }
-
-
     }
 }
