@@ -9,7 +9,4 @@ public enum MsgDAO {
     MsgDAO(){
 
     }
-
-
-
 }

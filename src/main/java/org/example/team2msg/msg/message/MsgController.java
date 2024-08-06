@@ -5,4 +5,5 @@ import jakarta.servlet.http.HttpServlet;
 
 @WebServlet (value = "/")
 public class MsgController extends HttpServlet {
+
 }
