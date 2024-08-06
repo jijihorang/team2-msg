@@ -8,9 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Message_${detail.mno}</title>
 </head>
 <body>
-
+    <form>
+        <ul>
+            <li>title: ${detail.title}</li>
+            <li>title: ${detail.sender}</li>
+            <li>title: ${detail.senddate}</li>
+        </ul>
+        <div>
+            <textarea>${detail.content}</textarea>
+        </div>
+    </form>
 </body>
 </html>

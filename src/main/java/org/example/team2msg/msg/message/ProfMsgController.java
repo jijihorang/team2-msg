@@ -9,13 +9,14 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
-@WebServlet (value = "/proflist")
+@WebServlet (value = "/profdetail")
 @Log4j2
-public class MsgController extends HttpServlet {
+public class ProfMsgController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("doGet");
-        req.getRequestDispatcher("/WEB-INF/professor/proflist.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/professor/detail.jsp").forward(req, resp);
     }
+
 }
