@@ -1,4 +1,4 @@
-package org.example.team2msg.msg.professor.dao;
+package org.example.team2msg.msg.professor;
 
 
 import jakarta.servlet.ServletException;
