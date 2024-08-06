@@ -75,6 +75,10 @@
       color: #757575;
     }
 
+    .stl-tabs a {
+      text-decoration: none; /* 모든 a 태그의 밑줄 없앰 */
+    }
+
     .stl-messages {
       list-style: none;
       padding: 0;
@@ -115,12 +119,12 @@
   <div class="stl-right">
     <div class="stl-tabs">
       <div class="stl-active">받은 메일함</div>
-      <div class="stl-inactive">보낸 메일함</div>
+     <a href="/studentlist/sent"> <div class="stl-inactive">보낸 메일함</div></a>
     </div>
     <ul class="stl-messages">
       <li class="stl-message2">
         <span class="stl-index">10.</span>
-        <span class="stl-name">강수천</span>
+        <span class="stl-name">보낸 사람 : 강수천</span>
         <span class="stl-title">단체 쪽지</span>
         <span class="stl-status">[ 안읽음 ] </span>
       </li>
