@@ -1,4 +1,4 @@
-package org.example.team2msg.vo;
+package org.example.team2msg.msg.student.vo;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class StudVO {
+public class StudentVO {
     private Integer sno;
     private String sid;
     private String spw;
