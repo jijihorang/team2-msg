@@ -111,7 +111,7 @@
     <div class="stl-left">
         <h2>안녕하세요<br>${professorId} 교수님</h2>
         <h2><br>본인이메일: ${professorEmail}</h2>
-        <button>쪽지 쓰기</button>
+        <button>쪽지 쓰기</button> <button>전체쪽지 쓰기</button>
     </div>
     <div class="stl-right">
         <div class="stl-tabs">
@@ -123,7 +123,9 @@
                 <li class="stl-message2">
                     <span class="stl-index">${status.count}.</span>
                     <span class="stl-name">${message.sender}</span>
-                    <span class="stl-title">${message.title}</span>
+                    <span class="stl-title">
+                        <a href="/detail?messageId=${message.mno}">${message.title}</a>
+                    </span>
                     <span class="stl-status">
                         <c:choose>
                             <c:when test="${message.is_read}">

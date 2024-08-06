@@ -28,4 +28,12 @@ public class MsgVO {
         this.is_read = is_read;
     }
 
+    public boolean isIs_broadcast() {  // Getter 추가
+        return is_broadcast;
+    }
+
+    public void setIs_broadcast(boolean is_broadcast) {  // Setter 추가
+        this.is_broadcast = is_broadcast;
+    }
+
 }
