@@ -51,5 +51,40 @@ public enum StudentDAO {
         return Optional.of(member); // Optional에 담아서 보냄
     }
 
+    // 회원가입 메서드
+    public boolean register(String sid, String smail, String spw) throws Exception {
+        String query = "INSERT INTO tbl_student (sid, smail, spw) VALUES (?, ?, ?)";
+
+        StudentVO member = StudentVO.builder()
+                .sid(sid)
+                .smail(smail)
+                .spw(spw)
+                .build();
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, member.getSid());
+        ps.setString(2, member.getSmail());
+        ps.setString(3, member.getSpw());
+
+        int rows = ps.executeUpdate();
+        return rows > 0; // 삽입된 행이 있는지 확인하여 성공 여부 반환
+    }
+
+    // 중복 확인 메서드 추가
+    public boolean isDuplicate(String sid, String smail) throws Exception {
+        String query = "SELECT COUNT(*) FROM tbl_student WHERE sid = ? OR smail = ?";
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(query);
+
+        ps.setString(1, sid);
+        ps.setString(2, smail);
+
+        @Cleanup ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt(1) > 0; // 중복된 결과가 있으면 true 반환
+    }
 
 }

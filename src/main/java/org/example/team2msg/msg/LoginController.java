@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.example.team2msg.msg.student.dao.StudentDAO;
-import org.example.team2msg.msg.student.vo.StudentVO;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -47,7 +46,7 @@ public class LoginController extends HttpServlet {
             result.ifPresentOrElse(  studentVO -> {
                 session.setAttribute("sid", studentVO);
                 try {
-                    resp.sendRedirect("/mypage"); // 로그인 성공 시 mypage로 리다이렉트 !
+                    resp.sendRedirect("/studentList"); // 로그인 성공 시 mypage로 리다이렉트 !
                 } catch (Exception e) {
                    e.printStackTrace();
                 }

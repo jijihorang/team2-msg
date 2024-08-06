@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>sign</title>
     <style>
         body {
             margin: 0;
@@ -15,12 +15,12 @@
             background-color: #f4f4f4;
         }
 
-        .container {
+        .sign-container {
             display: flex;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .left {
+        .sign-left {
             background-color: #eef5ff;
             padding: 100px;
             display: flex;
@@ -29,16 +29,16 @@
             justify-content: center;
         }
 
-        .secure-section {
+        .sign-secure-section {
             text-align: center;
         }
 
-        .secure-section .icon img {
+        .sign-secure-section .icon img {
             width: 100px;
             height: 100px;
         }
 
-        .right {
+        .sign-right {
             background-color: #0044cc;
             color: white;
             padding: 40px;
@@ -56,7 +56,7 @@
             width: 300px;
         }
 
-        .input-group {
+        .sign-input-group {
             margin-bottom: 20px;
         }
 
@@ -81,42 +81,39 @@
             margin-top: 10px;
         }
 
-        .create-account {
+        .sign-sign-in {
             background-color: #ffcc00;
             color: black;
             margin-bottom: 10px;
         }
-
-        .sign-in {
-            background-color: transparent;
-            border: 1px solid white;
-            color: white;
-        }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="left">
-        <div class="secure-section">
-            <div class="icon">
-                <img src="/img/key-icon.png" alt="Key Icon">
+<div class="sign-container">
+    <div class="sign-left">
+        <div class="sign-secure-section">
+            <div class="sign-icon">
+                <img src="/img/signuser.png" alt="User Icon">
             </div>
-            <h2>Secure</h2>
+            <h2>Sign Up</h2>
         </div>
     </div>
-    <div class="right">
-        <h1>Welcome !</h1>
-        <form action="/login" method="post">
-            <div class="input-group">
+    <div class="sign-right">
+        <h1> </h1>
+        <form action="/sign" method="post">
+            <div class="sign-input-group">
                 <label for="id">ID</label>
                 <input type="text" id="id" name="id" required>
             </div>
-            <div class="input-group">
-                <label for="password">PASSWORD</label>
-                <input type="password" id="password" name="password" required >
+            <div class="sign-input-group">
+                <label for="email">E-MAIL</label>
+                <input type="email" id="email" name="email" required>
             </div>
-            <button type="submit" class="create-account">Login</button>
-            <a href="/sign"><button type="button" class="sign-in">Sign Up</button></a>
+            <div class="sign-input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+           <a href="/login"> <button type="button" class="sign-sign-in">Sign in</button></a>
         </form>
     </div>
 </div>
