@@ -107,45 +107,39 @@ public enum MsgDAO {
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
 
-        ps.setString(1, receiver);
-        ps.setString(2, title);
-        ps.setString(3, content);
-
         @Cleanup ResultSet rs = ps.executeQuery();
 
         if( ! rs.next() ){
             throw new Exception();
         }
 
-        String sender = rs.getString("sender");
-
         // insert
         String query = """
-                insert into tbl_message (sender, receiver, title, content)
-                values (?, ?, ?, ?)
+                insert into tbl_message (receiver, title, content)
+                values (?, ?, ?)
                 """;
 
         @Cleanup PreparedStatement pst = con.prepareStatement(query);
-        pst.setString(1, sender);
-        pst.setString(2, receiver);
-        pst.setString(3, title);
-        pst.setString(4, content);
 
-        int count = pst.executeUpdate();
+        pst.setString(1, receiver);
+        pst.setString(2, title);
+        pst.setString(3, content);
+
+        log.info(receiver);
+
+        int count = pst.executeUpdate(); // 여기서 자꾸 오류남
 
         if (count != 1) {
             throw new Exception();
         }
 
-        pst.close();
-
         pst = con.prepareStatement("select last_insert_id()");
 
         @Cleanup ResultSet rst = pst.executeQuery();
 
-        rs.next();
+        rst.next();
 
-        Integer mno = rst.getInt("mno");
+        Integer mno = rst.getInt(1);
 
         return mno;
 
