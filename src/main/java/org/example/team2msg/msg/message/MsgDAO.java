@@ -60,16 +60,15 @@ public enum MsgDAO {
     }
 
     // 쪽지 상세 조회
-
-    public Optional<MsgVO> get(Integer mno) throws Exception{
+    public Optional<MsgVO> get(Integer mno, String receiver) throws Exception{
 
         final String sql = """
                 select
-                    mno, sender, title, content, senddate
+                    mno, sender, receiver, title, content, senddate
                 from
                     tbl_message
                 where
-                    receiver in (select pid from tbl_professor where delFlag = false)
+                    mno = ? and receiver = ?
                 """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
@@ -79,7 +78,7 @@ public enum MsgDAO {
 
         @Cleanup ResultSet rs = ps.executeQuery();
 
-        if( ! rs.next()){
+        if( ! rs.next() ){
             return Optional.empty();
         }
 
@@ -92,6 +91,63 @@ public enum MsgDAO {
                 .build();
 
         return Optional.of(detail);
+
+    }
+
+    // 쪽지 발송
+    public Integer sendMessage(String receiver, String title, String content) throws Exception{
+
+        String sql = """
+                select
+                    pid
+                from
+                    tbl_professor
+                """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setString(1, receiver);
+        ps.setString(2, title);
+        ps.setString(3, content);
+
+        @Cleanup ResultSet rs = ps.executeQuery();
+
+        if( ! rs.next() ){
+            throw new Exception();
+        }
+
+        String sender = rs.getString("sender");
+
+        // insert
+        String query = """
+                insert into tbl_message (sender, receiver, title, content)
+                values (?, ?, ?, ?)
+                """;
+
+        @Cleanup PreparedStatement pst = con.prepareStatement(query);
+        pst.setString(1, sender);
+        pst.setString(2, receiver);
+        pst.setString(3, title);
+        pst.setString(4, content);
+
+        int count = pst.executeUpdate();
+
+        if (count != 1) {
+            throw new Exception();
+        }
+
+        pst.close();
+
+        pst = con.prepareStatement("select last_insert_id()");
+
+        @Cleanup ResultSet rst = pst.executeQuery();
+
+        rs.next();
+
+        Integer mno = rst.getInt("mno");
+
+        return mno;
 
     }
 }
