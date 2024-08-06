@@ -7,17 +7,25 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 @Getter
 @ToString
 public class MsgVO {
+    private Integer mno;
+    private String sender;
+    private String receiver;
+    private String title;
+    private String content;
+    private Timestamp senddate;
+    private boolean is_read;
+    private boolean is_broadcast;
 
-    Integer mno;
-    String sender;
-    String receiver;
-    String title;
-    String content;
-    Timestamp senddate;
-    boolean is_read;
-    boolean is_broadcast;
+    public boolean isIs_read() {  // Getter 추가
+        return is_read;
+    }
+
+    public void setIs_read(boolean is_read) {  // Setter 추가
+        this.is_read = is_read;
+    }
 
 }

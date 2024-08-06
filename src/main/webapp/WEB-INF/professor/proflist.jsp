@@ -125,7 +125,14 @@
                     <span class="stl-name">${message.sender}</span>
                     <span class="stl-title">${message.title}</span>
                     <span class="stl-status">
-                        [ ${message.is_read ? '읽음' : '안읽음'} ]
+                        <c:choose>
+                            <c:when test="${message.is_read}">
+                                [ 읽음 ]
+                            </c:when>
+                            <c:otherwise>
+                                [ 안읽음 ]
+                            </c:otherwise>
+                        </c:choose>
                     </span>
                 </li>
             </c:forEach>
