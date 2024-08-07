@@ -176,7 +176,9 @@
         <li class="stl-message2">
           <span class="stl-index">${total - (page - 1)*size - status.index}</span>
           <c:set var="count" value="${count + 1}"/>
+
           <span class="stl-name">${message.sender}</span>
+
           <span class="stl-title">
              <a href="/studetail?messageId=${message.mno}">${message.title}</a>
           </span>

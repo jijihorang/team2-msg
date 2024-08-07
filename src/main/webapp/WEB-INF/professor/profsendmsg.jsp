@@ -91,7 +91,8 @@
         }
 
         .pem-input-group input,
-        .pem-input-group textarea {
+        .pem-input-group textarea,
+        .pem-input-group select {
             width: 95%;
             padding: 10px;
             border: 1px solid #ccc;
