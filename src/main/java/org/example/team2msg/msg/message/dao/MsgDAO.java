@@ -1,8 +1,9 @@
-package org.example.team2msg.msg.message;
+package org.example.team2msg.msg.message.dao;
 
 import lombok.Cleanup;
 import lombok.extern.log4j.Log4j2;
 import org.example.team2msg.common.ConnectionUtil;
+import org.example.team2msg.msg.message.MsgVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
