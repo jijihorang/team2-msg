@@ -39,6 +39,17 @@
             margin-bottom: 20px;
         }
 
+        .pem-left button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
         .pem-right {
             background-color: #ffffff;
             padding: 20px;
@@ -89,34 +100,20 @@
             color: black;
         }
     </style>
-</head>
 <body>
 <%@include file="../include/header.jsp"%>
 <div class="pem-container">
     <div class="pem-left">
         <h2>안녕하세요<br>교수 ${professorId}님</h2>
+        <form action="/proflogout" method="post">
+            <button>로그아웃</button>
+        </form>
     </div>
     <div class="pem-right">
-        <form action="/professor/sendmsg" method="post">
+        <form action="/professor/broadcastmsg" method="post"> <!-- 폼 액션 수정 -->
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
                 <input type="text" id="title" name="title" required>
-            </div>
-            <div class="sem-input-group">
-                <label for="receiver">RECEIVER</label>
-                <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
-                    <option value="" selected disabled></option>
-                    <optgroup label="교수목록">
-                        <c:forEach var="professor" items="${professorList}">
-                            <option value="${professor}">${professor}</option>
-                        </c:forEach>
-                    </optgroup>
-                    <optgroup label="학생목록">
-                        <c:forEach var="student" items="${studentList}">
-                            <option value="${student}">${student}</option>
-                        </c:forEach>
-                    </optgroup>
-                </select>
             </div>
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
@@ -130,4 +127,4 @@
     </div>
 </div>
 </body>
-</html>
+
