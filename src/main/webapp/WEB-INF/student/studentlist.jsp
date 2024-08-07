@@ -134,8 +134,8 @@
           <span class="stl-index">${count}</span>
           <c:set var="count" value="${count + 1}"/>
           <span class="stl-name">${message.sender}</span>
-          <span class="pfl-title">
-                        <a href="/detail?messageId=${message.mno}">${message.title}</a>
+          <span class="stl-title">
+             <a href="/studetail?messageId=${message.mno}">${message.title}</a>
           </span>
           <span class="stl-status">
             [ <c:choose>

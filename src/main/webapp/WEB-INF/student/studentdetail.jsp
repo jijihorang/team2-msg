@@ -1,8 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Message inbox</title>
+    <meta charset="UTF-8">
+    <title>Student Detail</title>
     <style>
         body {
             margin: 0;
@@ -14,14 +15,14 @@
             background-color: #f4f4f4;
         }
 
-        .std-container {
+        .container {
             display: flex;
             width: 80%;
             height: 80%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .std-left {
+        .sidebar {
             background-color: #007bff;
             padding: 40px;
             width: 25%;
@@ -33,102 +34,80 @@
             text-align: center;
         }
 
-        .std-left h2 {
+        .sidebar h2 {
             margin-bottom: 20px;
         }
 
-        .std-left button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: white;
-            color: black;
-            font-weight: bold;
-        }
-
-        .std-right {
+        .content {
             background-color: #ffffff;
             padding: 20px;
             width: 75%;
         }
 
-        .std-tabs {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
+        .form-group {
+            margin-top: 10px;
         }
 
-        .std-tabs div {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 5px;
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .std-tabs .std-active {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .std-tabs .std-inactive {
-            background-color: #e0e0e0;
-            color: #757575;
-        }
-
-        .std-messages {
-            list-style: none;
-            padding: 0;
-        }
-
-        .std-message2 {
-            display: flex;
-            justify-content: space-between;
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
             padding: 10px;
-            border-bottom: 1px solid #ddd;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
         }
 
-        .std-message2 {
-            width: 10%;
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
         }
 
-        .std-message2 {
-            width: 30%;
+        .button-group button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
-        .std-message2 {
-            width: 40%;
-        }
-
-        .std-message2 {
-            width: 20%;
-            text-align: right;
-        }
-
-        .std-textbox {
-
+        .button-group button.secondary {
+            background-color: #ccc;
+            color: black;
         }
     </style>
 </head>
-
 <body>
-<div class="std-container">
-    <div class="std-left">
-        <h2>안녕하세요<br>학생 ${member.sid} 님</h2>
-        <button>쪽지 쓰기</button>
-    </div>
-    <div class="std-right">
-        <div class="std-tabs">
-            <div class="std-active">받은 메일함</div>
-            <div class="std-inactive">보낸 메일함</div>
+<div class="container">
+    <div class="sidebar">
+        <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
+        <div class="button-group">
+            <a href="/studentlist"><button type="button" class="secondary">List</button></a>
         </div>
-        <form>
-            <ul class="std-messages">
-                <li class="std-message2">title: ${detail.title}</li>
-                <li class="std-message2">send: ${detail.sender}</li>
-                <li class="std-message2">date: ${detail.senddate}</li>
-                <textarea class="std-textbox">${detail.content}</textarea>
-            </ul>
-        </form>
+    </div>
+    <div class="content">
+        <div class="form-group">
+            <label for="title">TITLE</label>
+            <input type="text" id="title" name="title" value="${message.title}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="sender">SENDER</label>
+            <input type="text" id="sender" name="sender" value="${message.sender}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="date">DATE</label>
+            <input type="text" id="date" name="date" value="${message.senddate}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="content">CONTENT</label>
+            <textarea id="content" name="content" rows="10" readonly>${message.content}</textarea>
+        </div>
     </div>
 </div>
 </body>

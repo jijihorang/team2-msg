@@ -6,23 +6,29 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PageInfo {
-    private int page;
+    private int page; //current page
     private int start;
     private int end;
+
     private boolean prev;
     private boolean next;
 
     public PageInfo(int page, int size, int total) {
-        this.page = page <= 0 ? 1 : page;
-        this.end = (int)Math.ceil(this.page / 10.0) * 10;
-        this.start = this.end - 9;
 
-        this.prev = this.start > 1;
-        int realEnd = (int) Math.ceil((double) total / size);
-        this.next = this.end < realEnd;
+        this.page = page <= 0 ? 1: page;
 
-        if (this.end > realEnd) {
-            this.end = realEnd;
-        }
+        end = (int) (Math.ceil(this.page /10.0) * 10);
+
+        start = end - 9;
+
+        prev = start == 1 ? false : true ;
+
+        //100 < 120
+        if( end * size < total ) {
+            next = true;
+        }else {
+            next = false;
+            end =  (int) (Math.ceil(total / (double)size));
+        }//end else
     }
 }

@@ -16,13 +16,11 @@ import java.util.Optional;
 public enum MsgDAO {
     INSTANCE;
 
-    MsgDAO(){
-
+    MsgDAO() {
     }
 
     // 쪽지 전체 조회
-    public List<MsgVO> list(String receiver) throws Exception{
-
+    public List<MsgVO> list(String receiver, int page, int size) throws Exception {
         String sql = """
                 select
                     mno, sender, title, senddate, is_read
@@ -31,20 +29,21 @@ public enum MsgDAO {
                 where
                     receiver = ?
                 order by senddate desc
-                """
-                ;
+                limit ?, ?
+                """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setString(1, receiver);
+        ps.setInt(2, (page - 1) * size);
+        ps.setInt(3, size);
 
         @Cleanup ResultSet rs = ps.executeQuery();
 
         List<MsgVO> list = new ArrayList<>();
 
-        while(rs.next()){
-
+        while (rs.next()) {
             MsgVO vo = MsgVO.builder()
                     .mno(rs.getInt("mno"))
                     .sender(rs.getString("sender"))
@@ -52,18 +51,26 @@ public enum MsgDAO {
                     .senddate(rs.getTimestamp("senddate"))
                     .is_read(rs.getBoolean("is_read"))
                     .build();
-
             list.add(vo);
-
-        } // end while
-
+        }
 
         return list;
     }
 
-    // 쪽지 상세 조회
-    public Optional<MsgVO> get(Integer mno, String receiver) throws Exception{
+    // 메시지 총 개수 조회
+    public int getTotalCount(String receiver) throws Exception {
+        String sql = "select count(*) from tbl_message where receiver = ?";
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, receiver);
 
+        @Cleanup ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt(1);
+    }
+
+    // 쪽지 상세 조회
+    public Optional<MsgVO> get(Integer mno, String receiver) throws Exception {
         final String sql = """
                 select
                     mno, sender, receiver, title, content, senddate, is_read, is_broadcast
@@ -71,8 +78,7 @@ public enum MsgDAO {
                     tbl_message
                 where
                     mno = ? 
-                """
-                ;
+                """;
 
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
@@ -86,7 +92,7 @@ public enum MsgDAO {
 
         @Cleanup ResultSet rs = ps.executeQuery();
 
-        if( ! rs.next() ){
+        if (!rs.next()) {
             return Optional.empty();
         }
 
@@ -121,7 +127,6 @@ public enum MsgDAO {
         ps.setInt(1, mno);
         ps.executeUpdate();
     }
-
 
     // 메시지 전송
     public Integer sendMessage(MsgVO msg) throws Exception {
@@ -188,18 +193,21 @@ public enum MsgDAO {
     }
 
     // 받은 쪽지 리스트
-    public List<MsgVO> getReceivedMessages(String receiver) throws Exception {
+    public List<MsgVO> getReceivedMessages(String receiver, int page, int size) throws Exception {
         String query = """
             select mno, sender, receiver, title, content, senddate, is_read, is_broadcast
             from tbl_message
             where receiver = ?
             order by senddate desc
+            limit ?, ?
             """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement pst = con.prepareStatement(query);
 
         pst.setString(1, receiver);
+        pst.setInt(2, (page - 1) * size);
+        pst.setInt(3, size);
 
         @Cleanup ResultSet rs = pst.executeQuery();
 
@@ -224,18 +232,21 @@ public enum MsgDAO {
     }
 
     // 보낸 쪽지 리스트
-    public List<MsgVO> getSentMessages(String sender) throws Exception {
+    public List<MsgVO> getSentMessages(String sender, int page, int size) throws Exception {
         String query = """
             select mno, sender, receiver, title, content, senddate, is_read, is_broadcast
             from tbl_message
             where sender = ?
             order by senddate desc
+            limit ?, ?
             """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement pst = con.prepareStatement(query);
 
         pst.setString(1, sender);
+        pst.setInt(2, (page - 1) * size);
+        pst.setInt(3, size);
 
         @Cleanup ResultSet rs = pst.executeQuery();
 
@@ -258,5 +269,4 @@ public enum MsgDAO {
 
         return messages;
     }
-
 }
