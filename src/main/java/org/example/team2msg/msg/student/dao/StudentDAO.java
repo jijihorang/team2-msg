@@ -2,7 +2,7 @@ package org.example.team2msg.msg.student.dao;
 
 import lombok.Cleanup;
 import org.example.team2msg.common.ConnectionUtil;
-import org.example.team2msg.msg.student.vo.StudentVO;
+import org.example.team2msg.msg.student.StudentVO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

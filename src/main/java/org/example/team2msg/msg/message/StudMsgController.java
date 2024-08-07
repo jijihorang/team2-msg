@@ -9,7 +9,7 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 
-@WebServlet (value = "/studdetail")
+@WebServlet (value = "/studetail")
 @Log4j2
 public class StudMsgController extends HttpServlet {
 

@@ -10,8 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.http.HttpSession;
-import org.example.team2msg.msg.student.vo.StudentVO;
-
+import org.example.team2msg.msg.student.StudentVO;
 
 @Log4j2
 @WebServlet(value = "/student/sendmsg")
@@ -29,7 +28,6 @@ public class StudSendMsgController extends HttpServlet {
                 resp.sendRedirect(req.getContextPath() + "/login?error=Not logged in");
                 return;
             }
-
 
             req.setAttribute("studentList", studentList);
             req.setAttribute("professorList", professorList);

@@ -1,4 +1,4 @@
-package org.example.team2msg.msg.student.vo;
+package org.example.team2msg.msg.student;
 
 import lombok.*;
 

@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.example.team2msg.msg.message.MsgDAO;
 import org.example.team2msg.msg.message.MsgVO;
-import org.example.team2msg.msg.student.vo.StudentVO;
 
 import java.io.IOException;
 import java.util.List;
@@ -40,12 +39,7 @@ public class StudentListController extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/student/studentlist.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error("Error retrieving messages", e);
-            // resp.sendRedirect(req.getContextPath() + "/studentlist?error=server_error");
+            resp.sendRedirect(req.getContextPath() + "/studentlist?error=server_error");
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // POST 요청 처리 로직 (필요한 경우)
     }
 }
