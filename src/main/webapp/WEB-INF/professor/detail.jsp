@@ -43,6 +43,7 @@
         <p><strong>제목:</strong> ${message.title}</p>
         <p><strong>내용:</strong> ${message.content}</p>
         <p><strong>발송일:</strong> ${message.senddate}</p>
+        <p><strong>읽음:</strong> ${message.is_read ? '읽음' : '안읽음'}</p>
         <p><strong>전체 공지:</strong> ${message.is_broadcast ? '예' : '아니오'}</p>
     </div>
     <div class="buttons">

@@ -103,7 +103,7 @@
                 <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
 
             </div>
-            <div class="sem-input-group">
+            <div class="pem-input-group">
                 <label for="receiver">RECEIVER</label>
                 <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
                     <option value="" selected disabled></option>
