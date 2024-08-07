@@ -38,6 +38,39 @@
             margin-bottom: 20px;
         }
 
+        .button-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .button-group a {
+            width: 100%;
+        }
+
+        .button-group button {
+            width: 100%;
+            padding: 10px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .reply-button {
+            background-color: green;
+            color: white;
+        }
+
+        .secondary {
+            background-color: white;
+            color: black;
+            border: 1px solid #ccc;
+        }
+
+
         .content {
             background-color: #ffffff;
             padding: 20px;
@@ -71,7 +104,7 @@
         <h2>안녕하세요<br> ${professorId} 교수님</h2>
 
         <div class="button-group">
-            <a href="professor/sendmsg?replyToId==${message.mno}"><button class="reply-button">Reply</button></a>
+            <a href="/professor/sendmsg?replyToId=${message.mno}"><button class="reply-button">Reply</button></a>
             <a href="/proflist"><button type="button" class="secondary">List</button></a>
         </div>
     </div>
