@@ -42,7 +42,7 @@ public class ProfBroadcastMsgController extends HttpServlet{
         String title = req.getParameter("title");
         String content = req.getParameter("content");
 
-        log.info(sender + " " + title + " " + content);
+        log.info("================" + sender + " " + title + " " + content);
 
         try {
             List<String> studentList = MsgDAO.INSTANCE.getStudentList();

@@ -75,7 +75,7 @@ public class ProfSendMsgController extends HttpServlet {
         String receiver = req.getParameter("receiver");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-        log.info(sender +" "+ receiver +" "+ title +" "+ content);
+        log.info("++++++++++"+sender +" "+ receiver +" "+ title +" "+ content);
         boolean isRead = false;
         boolean isBroadcast = false;
 

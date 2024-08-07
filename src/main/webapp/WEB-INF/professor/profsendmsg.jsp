@@ -103,15 +103,13 @@
 </head>
 <body>
 
-<%@include file="../include/header.jsp"%>
+<%@ include file="../include/header.jsp" %>
 
 <div class="pem-container">
     <div class="pem-left">
         <h2>안녕하세요<br>교수 ${professorId}님</h2>
-        <div class="button-container">
-            <button type="submit" class="primary">Send</button>
-            <a href="/proflist"><span>List</span></a>
-        </div>
+        <!-- 'Send' 버튼을 제거하고 'List' 버튼을 이동 -->
+        <a href="/proflist" class="button secondary">List</a>
     </div>
 
     <div class="pem-right">
@@ -119,15 +117,15 @@
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
                 <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
-
             </div>
+
             <div class="pem-input-group">
                 <label for="receiver">RECEIVER</label>
                 <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
                     <option value="" selected disabled></option>
                     <optgroup label="교수목록">
                         <c:forEach var="professor" items="${professorList}">
-                            <option value="${professor}"  ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
+                            <option value="${professor}" ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
                         </c:forEach>
                     </optgroup>
                     <optgroup label="학생목록">
@@ -137,13 +135,20 @@
                     </optgroup>
                 </select>
             </div>
+
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
-                <textarea id="content" name="content" rows="10" value="${not empty originalMsg ? originalMsg.content : ''}" required></textarea>
+                <!-- 'value' 속성을 제거하고 textarea 내부에 값을 넣습니다. -->
+                <textarea id="content" name="content" rows="10" required>${not empty originalMsg ? originalMsg.content : ''}</textarea>
+            </div>
+
+            <div class="pem-button-group">
+                <button type="submit" class="primary">Send</button>
+                <!-- 'List' 버튼을 폼 외부로 이동하고 type="button" 설정 -->
+                <a href="/proflist"><button type="button" class="secondary">List</button></a>
             </div>
         </form>
     </div>
 </div>
 </body>
-
 </html>
