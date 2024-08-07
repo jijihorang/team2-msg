@@ -46,6 +46,7 @@
             background-color: white;
             color: black;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .pfl-right {
@@ -113,6 +114,9 @@
         <h2>안녕하세요<br>${professorId} 교수님</h2>
         <h2><br>본인이메일: ${professorEmail}</h2>
         <a href="/professor/sendmsg"><button>쪽지 쓰기</button></a>
+        <form action="/proflogout" method="post">
+            <button>로그아웃</button>
+        </form>
     </div>
     <div class="pfl-right">
         <div class="pfl-tabs">

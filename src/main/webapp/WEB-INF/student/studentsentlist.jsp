@@ -46,6 +46,7 @@
             background-color: white;
             color: black;
             font-weight: bold;
+            margin-bottom: 10px;
         }
 
         .stls-right {
@@ -117,6 +118,9 @@
     <div class="stls-left">
         <h2>안녕하세요<br>학생 ${studentName} 님</h2>
         <a href="/student/sendmsg"> <button>쪽지 쓰기</button> </a>
+        <form action="/studlogout" method="post">
+            <button>로그아웃</button>
+        </form>
     </div>
     <div class="stls-right">
         <div class="stls-tabs">

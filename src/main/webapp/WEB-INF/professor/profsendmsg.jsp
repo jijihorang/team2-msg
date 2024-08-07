@@ -39,6 +39,17 @@
             margin-bottom: 20px;
         }
 
+        .pem-left button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
         .pem-right {
             background-color: #ffffff;
             padding: 20px;
@@ -95,6 +106,9 @@
 <div class="pem-container">
     <div class="pem-left">
         <h2>안녕하세요<br>교수 ${professorId}님</h2>
+        <form action="/proflogout" method="post">
+            <button>로그아웃</button>
+        </form>
     </div>
     <div class="pem-right">
         <form action="/professor/sendmsg" method="post">

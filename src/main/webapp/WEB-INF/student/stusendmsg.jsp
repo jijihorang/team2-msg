@@ -40,6 +40,17 @@
             margin-bottom: 20px;
         }
 
+        .sem-left button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
         .sem-right {
             background-color: #ffffff;
             padding: 20px;
@@ -109,6 +120,9 @@
 <div class="sem-container">
     <div class="sem-left">
         <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
+        <form action="/studlogout" method="post">
+            <button>로그아웃</button>
+        </form>
     </div>
     <div class="sem-right">
         <form action="/student/sendmsg" method="post">
