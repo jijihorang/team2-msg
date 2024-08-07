@@ -71,7 +71,7 @@
         <h2>안녕하세요<br> ${professorId} 교수님</h2>
 
         <div class="button-group">
-            <a href="professor/sendmsg?replyToId==${message.mno}"><button class="reply-button">Reply</button></a>
+            <a href="/professor/sendmsg?replyToId=${message.mno}"><button class="reply-button">Reply</button></a>
             <a href="/proflist"><button type="button" class="secondary">List</button></a>
         </div>
     </div>
