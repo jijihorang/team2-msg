@@ -23,7 +23,7 @@ public class PageInfo {
 
         prev = start == 1 ? false : true ;
 
-        //100 < 120
+        // 100 < 120
         if( end * size < total ) {
             next = true;
         }else {
