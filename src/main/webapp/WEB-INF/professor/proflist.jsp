@@ -14,14 +14,14 @@
             background-color: #f4f4f4;
         }
 
-        .stl-container {
+        .pfl-container {
             display: flex;
             width: 80%;
             height: 80%;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
-        .stl-left {
+        .pfl-left {
             background-color: #007bff;
             padding: 40px;
             width: 25%;
@@ -33,11 +33,11 @@
             text-align: center;
         }
 
-        .stl-left h2 {
+        .pfl-left h2 {
             margin-bottom: 20px;
         }
 
-        .stl-left button {
+        .pfl-left button {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -47,59 +47,59 @@
             font-weight: bold;
         }
 
-        .stl-right {
+        .pfl-right {
             background-color: #ffffff;
             padding: 20px;
             width: 75%;
         }
 
-        .stl-tabs {
+        .pfl-tabs {
             display: flex;
             justify-content: space-around;
             margin-bottom: 20px;
         }
 
-        .stl-tabs div {
+        .pfl-tabs div {
             padding: 10px 20px;
             cursor: pointer;
             border-radius: 5px;
         }
 
-        .stl-tabs .stl-active {
+        .pfl-tabs .pfl-active {
             background-color: #28a745;
             color: white;
         }
 
-        .stl-tabs .stl-inactive {
+        .pfl-tabs .pfl-inactive {
             background-color: #e0e0e0;
             color: #757575;
         }
 
-        .stl-messages {
+        .pfl-messages {
             list-style: none;
             padding: 0;
         }
 
-        .stl-message2 {
+        .pfl-message2 {
             display: flex;
             justify-content: space-between;
             padding: 10px;
             border-bottom: 1px solid #ddd;
         }
 
-        .stl-message2 .stl-index {
+        .pfl-message2 .pfl-index {
             width: 10%;
         }
 
-        .stl-message2 .stl-name {
+        .pfl-message2 .pfl-name {
             width: 30%;
         }
 
-        .stl-message2 .stl-title {
+        .pfl-message2 .pfl-title {
             width: 40%;
         }
 
-        .stl-message2 .stl-status {
+        .pfl-message2 .pfl-status {
             width: 20%;
             text-align: right;
         }
@@ -107,26 +107,26 @@
 </head>
 
 <body>
-<div class="stl-container">
-    <div class="stl-left">
+<div class="pfl-container">
+    <div class="pfl-left">
         <h2>안녕하세요<br>${professorId} 교수님</h2>
         <h2><br>본인이메일: ${professorEmail}</h2>
         <a href="/professor/sendmsg"><button>쪽지 쓰기</button></a>
     </div>
-    <div class="stl-right">
-        <div class="stl-tabs">
-            <div class="stl-active">받은 메일함</div>
-            <div class="stl-inactive">보낸 메일함</div>
+    <div class="pfl-right">
+        <div class="pfl-tabs">
+            <div class="pfl-active">받은 메일함</div>
+            <a href="/proflist/sent"><div class="pfl-inactive">보낸 메일함</div></a>
         </div>
-        <ul class="stl-messages">
+        <ul class="pfl-messages">
             <c:forEach var="message" items="${messages}" varStatus="status">
-                <li class="stl-message2">
-                    <span class="stl-index">${status.count}.</span>
-                    <span class="stl-name">${message.sender}</span>
-                    <span class="stl-title">
+                <li class="pfl-message2">
+                    <span class="pfl-index">${status.count}.</span>
+                    <span class="pfl-name">${message.sender}</span>
+                    <span class="pfl-title">
                         <a href="/detail?messageId=${message.mno}">${message.title}</a>
                     </span>
-                    <span class="stl-status">
+                    <span class="pfl-status">
                         <c:choose>
                             <c:when test="${message.is_read}">
                                 [ 읽음 ]
