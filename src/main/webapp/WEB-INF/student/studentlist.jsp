@@ -96,7 +96,7 @@
     }
 
     .stl-message2 .stl-name {
-      width: 30%;
+      width: 20%;
     }
 
     .stl-message2 .stl-title {
@@ -113,21 +113,34 @@
 <body>
 <div class="stl-container">
   <div class="stl-left">
-    <h2>안녕하세요<br>학생 JIHO 님</h2>
+    <h2>안녕하세요<br>학생 ${student.name} 님</h2>
     <a href="/student/sendmsg"><button>쪽지 쓰기</button></a>
   </div>
   <div class="stl-right">
     <div class="stl-tabs">
-      <div class="stl-active">받은 메일함</div>
-     <a href="/studentlist/sent"> <div class="stl-inactive">보낸 메일함</div></a>
+      <c:choose>
+        <c:when test="${messageType == 'received'}">
+          <div class="stl-active">받은 메일함</div>
+          <a href="/studentlist/sent"><div class="stl-inactive">보낸 메일함</div></a>
+        </c:when>
+        <c:otherwise>
+          <a href="/studentlist"><div class="stl-inactive">받은 메일함</div></a>
+          <div class="stl-active">보낸 메일함</div>
+        </c:otherwise>
+      </c:choose>
     </div>
     <ul class="stl-messages">
-      <li class="stl-message2">
-        <span class="stl-index">10.</span>
-        <span class="stl-name">보낸 사람 : 강수천</span>
-        <span class="stl-title">단체 쪽지</span>
-        <span class="stl-status">[ 안읽음 ] </span>
-      </li>
+      <c:forEach var="message" items="${messages}">
+        <li class="stl-message2">
+          <span class="stl-index">${message.mno}</span>
+          <span class="stl-name">${message.sender}</span>
+          <span class="stl-title">${message.title}</span>
+          <span class="stl-status">[ <c:choose>
+            <c:when test="${message.is_read}">읽음</c:when>
+            <c:otherwise>안읽음</c:otherwise>
+          </c:choose> ]</span>
+        </li>
+      </c:forEach>
     </ul>
   </div>
 </div>
