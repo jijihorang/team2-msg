@@ -60,7 +60,7 @@ public class StudSendMsgController extends HttpServlet {
                     .is_broadcast(isBroadcast)
                     .build();
 
-            MsgDAO.INSTANCE.sendMessage2(msg);
+            MsgDAO.INSTANCE.sendMessage(msg);
             resp.sendRedirect(req.getContextPath() + "/studentlist");
         } catch (Exception e) {
             log.error("Message sending failed", e);

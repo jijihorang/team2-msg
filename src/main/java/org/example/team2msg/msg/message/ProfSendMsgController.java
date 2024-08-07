@@ -5,7 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.example.team2msg.msg.professor.ProfessorVO;
 
 import java.io.IOException;
 
@@ -23,28 +25,44 @@ public class ProfSendMsgController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("doPost");
 
-        String sender = req.getParameter("sender");
-        String title = req.getParameter("title");
-        String content = req.getParameter("content");
-        System.out.println("sender = " + sender);
-        System.out.println("title = " + title);
-        System.out.println("content = " + content);
+        HttpSession session = req.getSession();
 
-        try {
-            Integer mno = MsgDAO.INSTANCE.sendMessage(sender, title, content); // 여기서 자꾸 오류남
-            req.setAttribute("mno", mno);
-            req.setAttribute("title", title);
-            req.setAttribute("content", content);
-
-            req.getRequestDispatcher("/WEB-INF/professor/proflist.jsp").forward(req, resp);
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("error", "Message sending failed. Please try again.");
-            req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
-
+        if(session == null || session.getAttribute("professorId")==null){
+            resp.sendRedirect("/proflogin");
+            return;
         }
 
+        ProfessorVO professor = (ProfessorVO)session.getAttribute("professor");
+
+        if (professor == null) {
+            log.info("professor is not exist");
+            resp.sendRedirect("/proflogin");
+            return;
+        }
+
+        String sender = professor.getPid();
+        String receiver = req.getParameter("receiver");
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        log.info(sender +" "+ receiver +" "+ title +" "+ content);
+        boolean isRead = false;
+        boolean isBroadcast = false;
+
+        try {
+            MsgVO msg = MsgVO.builder()
+                    .receiver(receiver)
+                    .title(title)
+                    .content(content)
+                    .sender(sender)
+                    .is_read(isRead)
+                    .is_broadcast(isBroadcast)
+                    .build();
+            MsgDAO.INSTANCE.sendMessage(msg);
+            resp.sendRedirect(req.getContextPath() + "/proflist");
+        } catch (Exception e) {
+            log.error("Message sending failed", e);
+            req.setAttribute("error", "Message sending failed. Please try again.");
+            req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
+        }
     }
 }

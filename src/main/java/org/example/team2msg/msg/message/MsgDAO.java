@@ -97,55 +97,34 @@ public enum MsgDAO {
         return Optional.of(detail);
     }
 
-    // 쪽지 발송
-    public Integer sendMessage(String receiver, String title, String content) throws Exception{
-
-        String sql = """
-                select
-                    pid
-                from
-                    tbl_professor
-                """;
+    // 메시지 전송
+    public Integer sendMessage(MsgVO msg) throws Exception {
+        String query = """
+            insert into tbl_message (receiver, title, content, sender, senddate, is_read, is_broadcast)
+            values (?, ?, ?, ?, NOW(), ?, ?)
+            """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
-        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
-
-        @Cleanup ResultSet rs = ps.executeQuery();
-
-        if( ! rs.next() ){
-            throw new Exception();
-        }
-
-        // insert
-        String query = """
-                insert into tbl_message (receiver, title, content)
-                values (?, ?, ?)
-                """;
-
         @Cleanup PreparedStatement pst = con.prepareStatement(query);
 
-        pst.setString(1, receiver);
-        pst.setString(2, title);
-        pst.setString(3, content);
+        pst.setString(1, msg.getReceiver());
+        pst.setString(2, msg.getTitle());
+        pst.setString(3, msg.getContent());
+        pst.setString(4, msg.getSender());
+        pst.setBoolean(5, msg.isIs_read());
+        pst.setBoolean(6, msg.isIs_broadcast());
 
-        log.info(receiver);
-
-        int count = pst.executeUpdate(); // 여기서 자꾸 오류남
+        int count = pst.executeUpdate();
 
         if (count != 1) {
-            throw new Exception();
+            throw new Exception("Message sending failed");
         }
 
         pst = con.prepareStatement("select last_insert_id()");
-
         @Cleanup ResultSet rst = pst.executeQuery();
 
         rst.next();
-
-        Integer mno = rst.getInt(1);
-
-        return mno;
-
+        return rst.getInt(1);
     }
 
     // 학생 목록 가져오기
@@ -181,37 +160,4 @@ public enum MsgDAO {
 
         return professorList;
     }
-
-    // 메시지 전송
-    public Integer sendMessage2(MsgVO msg) throws Exception {
-        String query = """
-            insert into tbl_message (receiver, title, content, sender, senddate, is_read, is_broadcast)
-            values (?, ?, ?, ?, NOW(), ?, ?)
-            """;
-
-        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
-        @Cleanup PreparedStatement pst = con.prepareStatement(query);
-
-        pst.setString(1, msg.getReceiver());
-        pst.setString(2, msg.getTitle());
-        pst.setString(3, msg.getContent());
-        pst.setString(4, msg.getSender());
-        pst.setBoolean(5, msg.isIs_read());
-        pst.setBoolean(6, msg.isIs_broadcast());
-
-        int count = pst.executeUpdate();
-
-        if (count != 1) {
-            throw new Exception("Message sending failed");
-        }
-
-        pst = con.prepareStatement("select last_insert_id()");
-        @Cleanup ResultSet rst = pst.executeQuery();
-
-        rst.next();
-        return rst.getInt(1);
-    }
-
-
-
 }

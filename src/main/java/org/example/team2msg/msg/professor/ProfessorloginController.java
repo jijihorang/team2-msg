@@ -27,10 +27,10 @@ public class ProfessorloginController extends HttpServlet {
         //DB에서 사용자 정보를 확인해 정보를 얻어오기
         try {
             Optional<ProfessorVO> result = ProfessorDAO.INSTANCE.get(pid, ppw);
-            result.ifPresentOrElse( professorVO -> {
+            result.ifPresentOrElse( professor -> {
 
-                ProfessorVO professor = result.get();
                 HttpSession session = req.getSession();
+                session.setAttribute("professor",professor);
                 session.setAttribute("professorId",professor.getPid());
                 session.setAttribute("professorEmail", professor.getPmail());
 

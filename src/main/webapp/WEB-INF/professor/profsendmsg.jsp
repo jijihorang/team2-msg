@@ -101,8 +101,8 @@
                 <input type="text" id="title" name="title" required>
             </div>
             <div class="pem-input-group">
-                <label for="sender">RECEIVER</label>
-                <input type="text" id="sender" name="sender" required>
+                <label for="receiver">RECEIVER</label>
+                <input type="text" id="receiver" name="receiver" required>
             </div>
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
