@@ -70,15 +70,19 @@ public enum MsgDAO {
                 from
                     tbl_message
                 where
-                    mno = ? and receiver = ?
+                    mno = ? 
                 """
                 ;
+
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
 
         ps.setInt(1, mno);
-        ps.setString(2, receiver);
+        //ps.setString(2, receiver);
+
+        log.info("========mno=======" + mno);
+        log.info("========receiver=======" + receiver);
 
         @Cleanup ResultSet rs = ps.executeQuery();
 

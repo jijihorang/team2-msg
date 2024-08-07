@@ -134,11 +134,19 @@
           <span class="stl-index">${count}</span>
           <c:set var="count" value="${count + 1}"/>
           <span class="stl-name">${message.sender}</span>
-          <span class="stl-title">${message.title}</span>
-          <span class="stl-status">[ <c:choose>
-            <c:when test="${message.is_read}">읽음</c:when>
-            <c:otherwise>안읽음</c:otherwise>
-          </c:choose> ]</span>
+          <span class="pfl-title">
+                        <a href="/detail?messageId=${message.mno}">${message.title}</a>
+          </span>
+          <span class="stl-status">
+            [ <c:choose>
+            <c:when
+                    test="${message.is_read}">읽음
+            </c:when>
+            <c:otherwise>
+              안읽음
+            </c:otherwise>
+          </c:choose> ]
+          </span>
         </li>
       </c:forEach>
     </ul>
