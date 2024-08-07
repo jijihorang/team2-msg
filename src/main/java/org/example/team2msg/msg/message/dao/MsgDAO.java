@@ -8,6 +8,7 @@ import org.example.team2msg.msg.message.MsgVO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -156,6 +157,27 @@ public enum MsgDAO {
 
         rst.next();
         return rst.getInt(1);
+    }
+
+    // Id 기반 메시지 조회
+    public MsgVO getMessageById(int id) throws SQLException {
+        String query = "SELECT * FROM tbl_message WHERE mno = ?";
+        try (Connection conn = ConnectionUtil.INSTANCE.getDs().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return MsgVO.builder()
+                            .sender(rs.getString("receiver"))
+                            .receiver(rs.getString("sender"))
+                            .title(rs.getString("title"))
+                            .content(rs.getString("content"))
+                            .build();
+                } else {
+                    throw new SQLException("Message not found");
+                }
+            }
+        }
     }
 
     // 학생 목록 가져오기

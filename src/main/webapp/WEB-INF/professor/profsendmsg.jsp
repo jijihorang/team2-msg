@@ -100,7 +100,8 @@
         <form action="/professor/sendmsg" method="post">
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
+
             </div>
             <div class="sem-input-group">
                 <label for="receiver">RECEIVER</label>
@@ -108,19 +109,19 @@
                     <option value="" selected disabled></option>
                     <optgroup label="교수목록">
                         <c:forEach var="professor" items="${professorList}">
-                            <option value="${professor}">${professor}</option>
+                            <option value="${professor}" ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
                         </c:forEach>
                     </optgroup>
                     <optgroup label="학생목록">
                         <c:forEach var="student" items="${studentList}">
-                            <option value="${student}">${student}</option>
+                            <option value="${student}" ${student eq originalMsg.receiver ? 'selected' : ''}>${student}</option>
                         </c:forEach>
                     </optgroup>
                 </select>
             </div>
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
-                <textarea id="content" name="content" rows="10" required></textarea>
+                <textarea id="content" name="content" rows="10" value="${not empty originalMsg ? originalMsg.content : ''}" required></textarea>
             </div>
             <div class="pem-button-group">
                 <button type="submit" class="primary">Send</button>

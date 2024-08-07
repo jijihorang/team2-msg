@@ -46,7 +46,7 @@
         <p><strong>전체 공지:</strong> ${message.is_broadcast ? '예' : '아니오'}</p>
     </div>
     <div class="buttons">
-        <a href="/professor/sendmsg?id=${message.mno}">
+        <a href="/professor/sendmsg?replyToId=${message.mno}">
             <button class="reply-button">답장</button>
         </a>
         <a href="/proflist">
