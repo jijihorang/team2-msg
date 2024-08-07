@@ -111,6 +111,11 @@
             white-space: nowrap;
         }
 
+        .pfls-title a {
+            text-decoration: none;
+            color: black;
+        }
+
         .pagination {
             display: flex;
             justify-content: center;

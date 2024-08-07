@@ -117,6 +117,11 @@
             white-space: nowrap; /* 날짜를 한 줄로 출력 */
         }
 
+        .stls-title a {
+            text-decoration: none;
+            color: black;
+        }
+
         .stls-pagination {
             display: flex;
             justify-content: center;

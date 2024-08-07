@@ -135,6 +135,11 @@
             text-align: right;
         }
 
+        .pfl-title a {
+            text-decoration: none;
+            color: black;
+        }
+
         .pagination {
             display: flex;
             justify-content: center;

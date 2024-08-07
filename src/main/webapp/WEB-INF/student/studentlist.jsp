@@ -115,6 +115,12 @@
       width: 20%;
       text-align: right;
     }
+
+    .stl-title a {
+      text-decoration: none;
+      color: black;
+    }
+
     .stls-pagination {
       display: flex;
       justify-content: center;
