@@ -5,7 +5,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
+import org.example.team2msg.msg.professor.ProfessorVO;
 
 import java.io.IOException;
 
@@ -23,26 +25,45 @@ public class ProfSendMsgController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("doPost");
 
-        String sender = req.getParameter("sender");
+        HttpSession session = req.getSession();
+
+        ProfessorVO professor = (ProfessorVO) session.getAttribute("professor");
+
+        if (professor == null) {
+            resp.sendRedirect(req.getContextPath() + "/proflogin?error=Not logged in");
+            return;
+        }
+
+        String sender = professor.getPid();
+
+        String receiver = req.getParameter("receiver");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
+
         System.out.println("sender = " + sender);
+        System.out.println("sender = " + receiver);
         System.out.println("title = " + title);
         System.out.println("content = " + content);
 
+        boolean isRead = false;
+        boolean isBroadcast = false;
+
         try {
-            Integer mno = MsgDAO.INSTANCE.sendMessage(sender, title, content); // 여기서 자꾸 오류남
-            req.setAttribute("mno", mno);
-            req.setAttribute("title", title);
-            req.setAttribute("content", content);
+            MsgVO msg = MsgVO.builder()
+                    .receiver(receiver)
+                    .title(title)
+                    .content(content)
+                    .sender(sender)
+                    .is_read(isRead)
+                    .is_broadcast(isBroadcast)
+                    .build();
 
-            req.getRequestDispatcher("/WEB-INF/professor/proflist.jsp").forward(req, resp);
-
+            MsgDAO.INSTANCE.sendMessage2(msg); // 여기서 자꾸 오류남
+            resp.sendRedirect(req.getContextPath() + "/proflist");
 
         } catch (Exception e) {
-            e.printStackTrace();
-            req.setAttribute("error", "Message sending failed. Please try again.");
-            req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
+            log.error("error", e);
+            resp.sendRedirect(req.getContextPath() + "/professor/sendmsg?error=Message sending failed");
 
         }
 
