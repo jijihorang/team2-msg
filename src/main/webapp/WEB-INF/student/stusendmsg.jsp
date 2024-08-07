@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Send Message</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             margin: 0;
@@ -104,6 +105,7 @@
     </script>
 </head>
 <body>
+<%@include file="../include/header.jsp"%>
 <div class="sem-container">
     <div class="sem-left">
         <h2>안녕하세요<br>학생 ${student.sid} 님</h2>

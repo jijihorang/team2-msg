@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>Sent Messages</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             margin: 0;
@@ -111,6 +112,7 @@
 </head>
 
 <body>
+<%@include file="../include/header.jsp"%>
 <div class="stls-container">
     <div class="stls-left">
         <h2>안녕하세요<br>학생 ${studentName} 님</h2>
