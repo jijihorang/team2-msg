@@ -35,8 +35,13 @@ public class ProfessorSentListController extends HttpServlet {
         int size = 10; // 페이지당 표시할 메시지 수
 
         try {
-            int total = MsgDAO.INSTANCE.getTotalCount(professorId);
+            int total = MsgDAO.INSTANCE.getTotalSentCount(professorId);
             PageInfo pageInfo = new PageInfo(page, size, total);
+            req.setAttribute("total",total);
+            req.setAttribute("size",size);
+            req.setAttribute("page",page);
+
+            log.info("total: {} size: {} page: {}",total,size,page);
 
             List<MsgVO> messages = MsgDAO.INSTANCE.getSentMessages(professorId, page, size);
 

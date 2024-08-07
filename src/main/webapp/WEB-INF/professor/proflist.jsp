@@ -187,7 +187,7 @@
         <ul class="pfl-messages">
             <c:forEach var="message" items="${messages}" varStatus="status">
                 <li class="pfl-message2">
-                    <span class="pfl-index">${status.count}.</span>
+                    <span class="pfl-index">${total - (page - 1)*size - status.index}.</span>
                     <span class="pfl-name">${message.sender}</span>
                     <span class="pfl-title">
                         <a href="/detail?messageId=${message.mno}">${message.title}</a>

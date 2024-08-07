@@ -39,6 +39,11 @@ public class ProfessorListController extends HttpServlet {
 
         try {
             int total = MsgDAO.INSTANCE.getTotalCount(professorId);
+            req.setAttribute("total",total);
+            req.setAttribute("size",size);
+            req.setAttribute("page",page);
+            log.info("total: {} size: {} page: {}",total,size,page);
+
             PageInfo pageInfo = new PageInfo(page, size, total);
 
             List<MsgVO> messages = MsgDAO.INSTANCE.getReceivedMessages(professorId, page, size);

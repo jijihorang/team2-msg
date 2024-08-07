@@ -70,6 +70,21 @@ public enum MsgDAO {
         return rs.getInt(1);
     }
 
+    // 보낸 쪽지 횟수 반환
+    public int getTotalSentCount(String professorId) throws Exception {
+        String sql = "SELECT COUNT(*) FROM tbl_message WHERE sender = ?";
+        try (Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, professorId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        }
+        return 0;
+    }
+
     // 쪽지 상세 조회
     public Optional<MsgVO> get(Integer mno, String receiver) throws Exception {
         final String sql = """
@@ -113,6 +128,7 @@ public enum MsgDAO {
         return Optional.of(detail);
     }
 
+    //읽은 상태 반환
     private void updateReadStatus(Integer mno) throws Exception {
         String updateSql = """
             update tbl_message
@@ -291,5 +307,4 @@ public enum MsgDAO {
 
         return messages;
     }
-
 }

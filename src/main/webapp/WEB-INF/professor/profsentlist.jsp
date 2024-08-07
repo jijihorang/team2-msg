@@ -163,7 +163,7 @@
         <ul class="pfls-messages">
             <c:forEach var="message" items="${messages}" varStatus="status">
                 <li class="pfls-message2">
-                    <span class="pfls-index">${status.count}.</span>
+                    <span class="pfls-index">${total - (page - 1)*size - status.index}.</span>
                     <span class="pfls-name">${message.receiver}</span>
                     <span class="pfls-title">
                         <a href="/detail?messageId=${message.mno}">${message.title}</a>
