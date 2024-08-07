@@ -26,11 +26,11 @@
             cursor: pointer;
         }
         .reply-button {
-            background-color: #4CAF50; /* Green */
+            background-color: #4CAF50;
             color: white;
         }
         .back-button {
-            background-color: #f44336; /* Red */
+            background-color: #f44336;
             color: white;
         }
     </style>

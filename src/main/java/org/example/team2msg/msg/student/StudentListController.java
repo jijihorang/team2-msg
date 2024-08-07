@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.example.team2msg.msg.message.dao.MsgDAO;
 import org.example.team2msg.msg.message.MsgVO;
+import org.example.team2msg.common.PageInfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,9 +31,15 @@ public class StudentListController extends HttpServlet {
         }
 
         String sid = student.getSid();
+        int page = Integer.parseInt(req.getParameter("page") == null ? "1" : req.getParameter("page"));
+        int size = 10; // 페이지당 표시할 메시지 수
 
         try {
-            List<MsgVO> messages = MsgDAO.INSTANCE.getReceivedMessages(sid);
+            int total = MsgDAO.INSTANCE.getTotalCount(sid);
+            PageInfo pageInfo = new PageInfo(page, size, total);
+
+            List<MsgVO> messages = MsgDAO.INSTANCE.getReceivedMessages(sid, page, size);
+            req.setAttribute("pageInfo", pageInfo);
             req.setAttribute("messageType", "received");
             req.setAttribute("messages", messages);
             req.setAttribute("studentName", student.getSid());
