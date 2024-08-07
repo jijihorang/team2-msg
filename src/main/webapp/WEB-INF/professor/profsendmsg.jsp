@@ -123,12 +123,12 @@
                 <label for="receiver">RECEIVER</label>
                 <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
                     <option value="" selected disabled></option>
-                    <optgroup label="교수목록">
+                    <optgroup label="Professors">
                         <c:forEach var="professor" items="${professorList}">
                             <option value="${professor}" ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
                         </c:forEach>
                     </optgroup>
-                    <optgroup label="학생목록">
+                    <optgroup label="Students">
                         <c:forEach var="student" items="${studentList}">
                             <option value="${student}" ${student eq originalMsg.receiver ? 'selected' : ''}>${student}</option>
                         </c:forEach>
