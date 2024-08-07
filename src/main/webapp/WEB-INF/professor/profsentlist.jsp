@@ -111,11 +111,6 @@
             white-space: nowrap;
         }
 
-        .pfls-message2 .pfls-status {
-            width: 20%;
-            text-align: right;
-        }
-
         .pagination {
             display: flex;
             justify-content: center;

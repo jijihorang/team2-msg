@@ -141,10 +141,6 @@
                 <label for="content">CONTENT</label>
                 <textarea id="content" name="content" rows="10" value="${not empty originalMsg ? originalMsg.content : ''}" required></textarea>
             </div>
-            <div class="pem-button-group">
-                <button type="submit" class="primary">Send</button>
-                <a href="/proflist"><button type="button" class="secondary">List</button></a>
-            </div>
         </form>
     </div>
 </div>

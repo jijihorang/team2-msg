@@ -60,7 +60,7 @@
         }
 
         .reply-button {
-            background-color: green;
+            background-color: #28a745;
             color: white;
         }
 
