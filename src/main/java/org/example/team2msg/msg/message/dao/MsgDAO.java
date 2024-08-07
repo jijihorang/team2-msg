@@ -307,4 +307,21 @@ public enum MsgDAO {
 
         return messages;
     }
+
+    // 쪽지 삭제
+    public boolean delete(Integer mno) throws Exception {
+
+        String sql = "delete from tbl_message where mno = ?";
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setInt(1, mno);
+
+        int count = ps.executeUpdate();
+
+        return count == 1 ? true : false;
+
+    }
+
 }

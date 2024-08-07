@@ -94,6 +94,18 @@
             margin-bottom: 20px;
             box-sizing: border-box;
         }
+
+        .content form button {
+            background-color: salmon;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            width: 100%;
+            padding: 10px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
     </style>
 </head>
 <body>
@@ -123,6 +135,9 @@
             <label for="content">CONTENT</label>
             <textarea id="content" name="content" rows="10" readonly>${message.content}</textarea>
         </div>
+        <form action="/student/deleteMsg?replyToId=${message.mno}" method="post">
+            <button type="submit">DELETE</button>
+        </form>
     </div>
 </div>
 </body>
