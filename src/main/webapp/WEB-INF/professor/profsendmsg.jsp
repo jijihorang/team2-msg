@@ -103,8 +103,13 @@
                 <input type="text" id="title" name="title" required>
             </div>
             <div class="pem-input-group">
-                <label for="receiver">RECEIVER</label>
-                <input type="text" id="receiver" name="receiver" required>
+                <label>RECEIVER</label>
+                <div id="receiverList">
+                    <c:forEach var="student" items="${studentList}">
+                        <input type="checkbox" class="student-checkbox" value="${student}" id="student_${student}" name="receivers">
+                        <label for="student_${student}">${student}</label><br>
+                    </c:forEach>
+                </div>
             </div>
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>

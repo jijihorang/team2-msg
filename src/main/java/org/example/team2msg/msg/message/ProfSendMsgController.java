@@ -9,8 +9,10 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
 import org.example.team2msg.msg.message.dao.MsgDAO;
 import org.example.team2msg.msg.professor.ProfessorVO;
+import org.example.team2msg.msg.student.StudentVO;
 
 import java.io.IOException;
+import java.util.List;
 
 @WebServlet (value = "/professor/sendmsg")
 @Log4j2
@@ -19,7 +21,19 @@ public class ProfSendMsgController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("doGet");
-        req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
+
+        try {
+            List<String> studentList = MsgDAO.INSTANCE.getStudentList();
+
+            HttpSession session = req.getSession();
+            ProfessorVO professor = (ProfessorVO) session.getAttribute("professor");
+
+            req.setAttribute("studentList", studentList);
+
+            req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
+        } catch (Exception e) {
+            throw new ServletException("Error retrieving student or professor list", e);
+        }
     }
 
     @Override

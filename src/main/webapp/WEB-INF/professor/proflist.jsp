@@ -121,7 +121,7 @@
             <a href="/proflist/sent"><div class="pfl-inactive">보낸 메일함</div></a>
         </div>
         <ul class="pfl-messages">
-            <c:forEach var="message" items="${messages}" varStatus="status">
+            <c:forEach var="message" items="${messages}" varStatus="status" >
                 <li class="pfl-message2">
                     <span class="pfl-index">${status.count}.</span>
                     <span class="pfl-name">${message.sender}</span>

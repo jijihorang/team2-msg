@@ -30,6 +30,7 @@ public enum MsgDAO {
                     tbl_message
                 where
                     receiver = ?
+                order by senddate desc
                 """
                 ;
 
