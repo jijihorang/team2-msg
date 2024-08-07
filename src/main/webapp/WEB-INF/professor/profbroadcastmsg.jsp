@@ -103,15 +103,15 @@
 <div class="pem-container">
     <div class="pem-left">
         <h2>안녕하세요<br>교수 ${professorId}님</h2>
-
+        <form action="/professor/broadcastmsg" method="post">
         <div class="button-container">
             <button type="submit" class="primary">Send</button>
             <a href="/proflist"><span>List</span></a>
         </div>
     </div>
 
+
     <div class="pem-right">
-        <form action="/professor/broadcastmsg" method="post">
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
                 <input type="text" id="title" name="title" required>
@@ -121,8 +121,8 @@
                 <label for="content">CONTENT</label>
                 <textarea id="content" name="content" rows="10" required></textarea>
             </div>
-        </form>
     </div>
 </div>
+</form>
 </body>
 
