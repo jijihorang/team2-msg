@@ -74,6 +74,9 @@
             background-color: #ffffff;
             padding: 20px;
             width: 75%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .form-group {
@@ -95,17 +98,20 @@
             box-sizing: border-box;
         }
 
-        .content form button {
-            background-color: salmon;
+        .form-group.form-delete {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-delete button.delete-btn  {
+            padding: 10px 20px;
+            background-color: #dc3545;
+            color: white;
             border: none;
             border-radius: 4px;
-            color: white;
-            width: 100%;
-            padding: 10px 0;
             cursor: pointer;
             font-size: 16px;
         }
-
     </style>
 </head>
 <body>
@@ -135,9 +141,11 @@
             <label for="content">CONTENT</label>
             <textarea id="content" name="content" rows="10" readonly>${message.content}</textarea>
         </div>
-        <form action="/student/deleteMsg?replyToId=${message.mno}" method="post">
-            <button type="submit">DELETE</button>
-        </form>
+        <div class="form-group form-delete">
+            <form action="/student/deleteMsg?replyToId=${message.mno}" method="post">
+                <button type="submit" class="delete-btn">DELETE</button>
+            </form>
+        </div>
     </div>
 </div>
 </body>

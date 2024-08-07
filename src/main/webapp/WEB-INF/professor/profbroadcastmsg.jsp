@@ -102,7 +102,7 @@
 <%@include file="../include/header.jsp"%>
 <div class="pem-container">
     <div class="pem-left">
-        <h2>안녕하세요<br>교수 ${professorId}님</h2>
+        <h2>안녕하세요<br> ${professorId} 교수님</h2>
         <form action="/professor/broadcastmsg" method="post">
         <div class="button-container">
             <button type="submit" class="primary">Send</button>

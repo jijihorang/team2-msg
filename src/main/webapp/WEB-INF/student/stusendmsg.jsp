@@ -98,7 +98,6 @@
             margin-bottom: 20px;
             box-sizing: border-box;
         }
-
         .error-message {
             color: red;
             text-align: center;
@@ -111,57 +110,54 @@
             document.getElementById('receiver').value = value;
         }
     </script>
-
 </head>
 <body>
 
 <%@include file="../include/header.jsp"%>
 
 <div class="sem-container">
-    <div class="sem-left">
-        <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
-
-        <form action="/student/sendmsg" method="post">
+    <form action="/student/sendmsg" method="post" style="display: flex; width: 100%;">
+        <div class="sem-left">
+            <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
             <div class="button-container">
                 <button type="submit" class="primary">Send</button>
                 <a href="/studentlist"><button type="button" class="secondary">List</button></a>
             </div>
-    </div>
-
-    <div class="sem-right">
-        <div class="sem-input-group">
-            <label for="title">TITLE</label>
-            <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
         </div>
 
-        <div class="sem-input-group">
-            <label for="receiver">RECEIVER</label>
-            <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
-                <option value="" selected disabled></option>
-                <optgroup label="Students">
-                    <c:forEach var="student" items="${studentList}">
-                        <option value="${student}"  ${student eq originalMsg.receiver ? 'selected' : ''}>${student}</option>
-                    </c:forEach>
-                </optgroup>
-                <optgroup label="Professors">
-                    <c:forEach var="professor" items="${professorList}">
-                        <option value="${professor}" ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
-                    </c:forEach>
-                </optgroup>
-            </select>
+        <div class="sem-right">
+            <div class="sem-input-group">
+                <label for="title">TITLE</label>
+                <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
+            </div>
+
+            <div class="sem-input-group">
+                <label for="receiver">RECEIVER</label>
+                <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
+                    <option value="" selected disabled></option>
+                    <optgroup label="Students">
+                        <c:forEach var="student" items="${studentList}">
+                            <option value="${student}"  ${student eq originalMsg.receiver ? 'selected' : ''}>${student}</option>
+                        </c:forEach>
+                    </optgroup>
+                    <optgroup label="Professors">
+                        <c:forEach var="professor" items="${professorList}">
+                            <option value="${professor}" ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
+                        </c:forEach>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="sem-input-group">
+                <label for="content">CONTENT</label>
+                <textarea id="content" name="content" rows="10" required>${not empty originalMsg ? originalMsg.content : ''}</textarea>
+            </div>
+
+            <c:if test="${not empty param.error}">
+                <div class="error-message">${param.error}</div>
+            </c:if>
         </div>
-
-        <div class="sem-input-group">
-            <label for="content">CONTENT</label>
-            <textarea id="content" name="content" rows="10" required>${not empty originalMsg ? originalMsg.content : ''}</textarea>
-        </div>
-
-        <c:if test="${not empty param.error}">
-            <div class="error-message">${param.error}</div>
-        </c:if>
-
-        </form>
-    </div>
+    </form>
 </div>
 </body>
 </html>

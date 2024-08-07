@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Send Message</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
         body {
             margin: 0;
@@ -33,6 +34,7 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            height: 103%;
         }
 
         .pem-left h2 {
@@ -71,11 +73,11 @@
             background-color: white;
             color: black;
         }
-
         .pem-right {
             background-color: #ffffff;
             padding: 20px;
             width: 75%;
+            height: 103%;
         }
 
         .pem-input-group {
@@ -89,31 +91,42 @@
         }
 
         .pem-input-group input,
-        .pem-input-group textarea,
-        .pem-input-group select {
-            width: 100%;
+        .pem-input-group textarea {
+            width: 95%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             margin-bottom: 20px;
-            box-sizing: border-box;
         }
 
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
+
+    <script>
+        function setReceiver(value) {
+            document.getElementById('receiver').value = value;
+        }
+    </script>
 </head>
 <body>
 
 <%@ include file="../include/header.jsp" %>
 
 <div class="pem-container">
-    <div class="pem-left">
-        <h2>안녕하세요<br>교수 ${professorId}님</h2>
-        <!-- 'Send' 버튼을 제거하고 'List' 버튼을 이동 -->
-        <a href="/proflist" class="button secondary">List</a>
-    </div>
+    <form action="/professor/sendmsg" method="post" style="display: flex; width: 100%;">
+        <div class="pem-left">
+            <h2>안녕하세요<br> ${professorId} 교수님</h2>
+            <div class="button-container">
+                <button type="submit" class="primary">Send</button>
+                <a href="/proflist" class="secondary">List</a>
+            </div>
+        </div>
 
-    <div class="pem-right">
-        <form action="/professor/sendmsg" method="post">
+        <div class="pem-right">
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
                 <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
@@ -138,17 +151,13 @@
 
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
-                <!-- 'value' 속성을 제거하고 textarea 내부에 값을 넣습니다. -->
                 <textarea id="content" name="content" rows="10" required>${not empty originalMsg ? originalMsg.content : ''}</textarea>
             </div>
-
-            <div class="pem-button-group">
-                <button type="submit" class="primary">Send</button>
-                <!-- 'List' 버튼을 폼 외부로 이동하고 type="button" 설정 -->
-                <a href="/proflist"><button type="button" class="secondary">List</button></a>
-            </div>
-        </form>
-    </div>
+            <c:if test="${not empty param.error}">
+                <div class="error-message">${param.error}</div>
+            </c:if>
+        </div>
+    </form>
 </div>
 </body>
 </html>
