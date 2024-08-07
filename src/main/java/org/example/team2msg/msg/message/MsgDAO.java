@@ -69,7 +69,8 @@ public enum MsgDAO {
                     tbl_message
                 where
                     mno = ? and receiver = ?
-                """;
+                """
+                ;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
@@ -94,8 +95,27 @@ public enum MsgDAO {
                 .is_broadcast(rs.getBoolean("is_broadcast"))
                 .build();
 
+        updateReadStatus(mno);
+
         return Optional.of(detail);
     }
+
+    private void updateReadStatus(Integer mno) throws Exception {
+        String updateSql = """
+            update tbl_message
+            set 
+                is_read = true
+            where 
+                mno = ?
+        """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement ps = con.prepareStatement(updateSql);
+
+        ps.setInt(1, mno);
+        ps.executeUpdate();
+    }
+
 
     // 메시지 전송
     public Integer sendMessage(MsgVO msg) throws Exception {
