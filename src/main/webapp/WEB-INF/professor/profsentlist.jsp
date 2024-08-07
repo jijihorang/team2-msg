@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>Professor List Page</title>
@@ -137,14 +138,7 @@
                         <a href="/detail?messageId=${message.mno}">${message.title}</a>
                     </span>
                     <span class="pfls-status">
-                        <c:choose>
-                            <c:when test="${message.is_read}">
-                                [ 읽음 ]
-                            </c:when>
-                            <c:otherwise>
-                                [ 안읽음 ]
-                            </c:otherwise>
-                        </c:choose>
+                            <fmt:formatDate value="${message.senddate}" pattern="yyyy-MM-dd"/>
                     </span>
                 </li>
             </c:forEach>
