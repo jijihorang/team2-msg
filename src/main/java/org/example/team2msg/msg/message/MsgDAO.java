@@ -100,15 +100,27 @@ public enum MsgDAO {
     // 쪽지 발송
     public Integer sendMessage(String receiver, String title, String content) throws Exception{
 
+        // insert
         String sql = """
-                select
-                    pid
-                from
-                    tbl_professor
+                insert into tbl_message (receiver, title, content)
+                values (?, ?, ?)
                 """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+
+//        ps.setString(1, sender);
+        ps.setString(1, receiver);
+        ps.setString(2, title);
+        ps.setString(3, content);
+
+        int count = ps.executeUpdate(); // 여기서 자꾸 오류남
+
+        if (count != 1) {
+            throw new Exception();
+        }
+
+        ps = con.prepareStatement("select last_insert_id()");
 
         @Cleanup ResultSet rs = ps.executeQuery();
 
@@ -116,33 +128,7 @@ public enum MsgDAO {
             throw new Exception();
         }
 
-        // insert
-        String query = """
-                insert into tbl_message (receiver, title, content)
-                values (?, ?, ?)
-                """;
-
-        @Cleanup PreparedStatement pst = con.prepareStatement(query);
-
-        pst.setString(1, receiver);
-        pst.setString(2, title);
-        pst.setString(3, content);
-
-        log.info(receiver);
-
-        int count = pst.executeUpdate(); // 여기서 자꾸 오류남
-
-        if (count != 1) {
-            throw new Exception();
-        }
-
-        pst = con.prepareStatement("select last_insert_id()");
-
-        @Cleanup ResultSet rst = pst.executeQuery();
-
-        rst.next();
-
-        Integer mno = rst.getInt(1);
+        Integer mno = rs.getInt(1);
 
         return mno;
 
