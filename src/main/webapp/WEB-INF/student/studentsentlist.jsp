@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>Student List Page</title>
+    <title>Sent Messages</title>
     <style>
         body {
             margin: 0;
@@ -66,13 +66,13 @@
         }
 
         .stls-tabs .stls-active {
-            background-color: #e0e0e0;
-            color: #757575;
+            background-color: #28a745;
+            color: white;
         }
 
         .stls-tabs .stls-inactive {
-            background-color: #28a745;
-            color: white;
+            background-color: #e0e0e0;
+            color: #757575;
         }
 
         .stls-tabs a {
@@ -113,21 +113,28 @@
 <body>
 <div class="stls-container">
     <div class="stls-left">
-        <h2>안녕하세요<br>학생 JIHO 님</h2>
+        <h2>안녕하세요<br>학생 ${studentName} 님</h2>
         <a href="/student/sendmsg"> <button>쪽지 쓰기</button> </a>
     </div>
     <div class="stls-right">
         <div class="stls-tabs">
-            <a href="/studentlist"><div class="stls-active">받은 메일함</div></a>
-            <div class="stls-inactive">보낸 메일함</div>
+            <a href="/studentlist"><div class="stls-inactive">받은 메일함</div></a>
+            <div class="stls-active">보낸 메일함</div>
         </div>
         <ul class="stls-messages">
-            <li class="stls-message2">
-                <span class="stls-index">10.</span>
-                <span class="stls-name">받는 사람 : 주희님</span>
-                <span class="stls-title">오늘은 운동 쉽니다</span>
-                <span class="stls-status">[ 안읽음 ] </span>
-            </li>
+            <c:set var="count" value="1"/>
+            <c:forEach var="message" items="${messages}">
+                <li class="stls-message2">
+                    <span class="stls-index">${count}</span>
+                    <c:set var="count" value="${count + 1}"/>
+                    <span class="stls-name">받는 사람 : ${message.receiver}</span>
+                    <span class="stls-title">${message.title}</span>
+                    <span class="stls-status">[ <c:choose>
+                        <c:when test="${message.is_read}">읽음</c:when>
+                        <c:otherwise>안읽음</c:otherwise>
+                    </c:choose> ]</span>
+                </li>
+            </c:forEach>
         </ul>
     </div>
 </div>

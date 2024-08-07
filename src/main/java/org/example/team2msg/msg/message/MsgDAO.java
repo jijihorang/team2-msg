@@ -180,4 +180,77 @@ public enum MsgDAO {
 
         return professorList;
     }
+
+    // 받은 쪽지 리스트
+    public List<MsgVO> getReceivedMessages(String receiver) throws Exception {
+        String query = """
+            select mno, sender, receiver, title, content, senddate, is_read, is_broadcast
+            from tbl_message
+            where receiver = ?
+            order by senddate desc
+            """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setString(1, receiver);
+
+        @Cleanup ResultSet rs = pst.executeQuery();
+
+        List<MsgVO> messages = new ArrayList<>();
+
+        while (rs.next()) {
+            MsgVO msg = MsgVO.builder()
+                    .mno(rs.getInt("mno"))
+                    .sender(rs.getString("sender"))
+                    .receiver(rs.getString("receiver"))
+                    .title(rs.getString("title"))
+                    .content(rs.getString("content"))
+                    .senddate(rs.getTimestamp("senddate"))
+                    .is_read(rs.getBoolean("is_read"))
+                    .is_broadcast(rs.getBoolean("is_broadcast"))
+                    .build();
+
+            messages.add(msg);
+        }
+
+        return messages;
+    }
+
+    // 보낸 쪽지 리스트
+    public List<MsgVO> getSentMessages(String sender) throws Exception {
+        String query = """
+            select mno, sender, receiver, title, content, senddate, is_read, is_broadcast
+            from tbl_message
+            where sender = ?
+            order by senddate desc
+            """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setString(1, sender);
+
+        @Cleanup ResultSet rs = pst.executeQuery();
+
+        List<MsgVO> messages = new ArrayList<>();
+
+        while (rs.next()) {
+            MsgVO msg = MsgVO.builder()
+                    .mno(rs.getInt("mno"))
+                    .sender(rs.getString("sender"))
+                    .receiver(rs.getString("receiver"))
+                    .title(rs.getString("title"))
+                    .content(rs.getString("content"))
+                    .senddate(rs.getTimestamp("senddate"))
+                    .is_read(rs.getBoolean("is_read"))
+                    .is_broadcast(rs.getBoolean("is_broadcast"))
+                    .build();
+
+            messages.add(msg);
+        }
+
+        return messages;
+    }
+
 }

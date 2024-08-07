@@ -16,14 +16,24 @@ import org.example.team2msg.msg.student.vo.StudentVO;
 @Log4j2
 @WebServlet(value = "/student/sendmsg")
 public class StudSendMsgController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             List<String> studentList = MsgDAO.INSTANCE.getStudentList();
             List<String> professorList = MsgDAO.INSTANCE.getProfessorList();
 
+            HttpSession session = req.getSession();
+            StudentVO student = (StudentVO) session.getAttribute("student");
+            if (student == null) {
+                resp.sendRedirect(req.getContextPath() + "/login?error=Not logged in");
+                return;
+            }
+
+
             req.setAttribute("studentList", studentList);
             req.setAttribute("professorList", professorList);
+            req.setAttribute("student", student);
 
             req.getRequestDispatcher("/WEB-INF/student/stusendmsg.jsp").forward(req, resp);
         } catch (Exception e) {
