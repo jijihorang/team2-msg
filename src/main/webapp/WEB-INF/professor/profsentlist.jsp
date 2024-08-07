@@ -106,6 +106,11 @@
             width: 40%;
         }
 
+        .pfls-message2 .pfls-date {
+            width: 15%;
+            white-space: nowrap;
+        }
+
         .pfls-message2 .pfls-status {
             width: 20%;
             text-align: right;
@@ -142,11 +147,13 @@
     </style>
 </head>
 <body>
+
 <%@include file="../include/header.jsp"%>
+
 <div class="pfls-container">
     <div class="pfls-left">
         <h2>안녕하세요<br>${professorId} 교수님</h2>
-        <h2><br>본인이메일: ${professorEmail}</h2>
+
         <a href="/professor/sendmsg"><button>쪽지 쓰기</button></a>
         <form action="/proflogout" method="post">
             <button>로그아웃</button>
@@ -157,6 +164,7 @@
             <a href="/proflist"><div class="pfls-inactive">받은 메일함</div></a>
             <a href="/proflist/sent"><div class="pfls-active">보낸 메일함</div></a>
         </div>
+
         <ul class="pfls-messages">
             <c:forEach var="message" items="${messages}" varStatus="status">
                 <li class="pfls-message2">
@@ -165,12 +173,13 @@
                     <span class="pfls-title">
                         <a href="/detail?messageId=${message.mno}">${message.title}</a>
                     </span>
-                    <span class="pfls-status">
-                            <fmt:formatDate value="${message.senddate}" pattern="yyyy-MM-dd"/>
+                    <span class="pfls-date">
+                        <fmt:formatDate value="${message.senddate}" pattern="yyyy-MM-dd"/>
                     </span>
                 </li>
             </c:forEach>
         </ul>
+
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <c:if test="${pageInfo.prev}">

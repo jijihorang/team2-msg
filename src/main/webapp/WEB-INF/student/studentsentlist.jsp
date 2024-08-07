@@ -48,6 +48,12 @@
             color: black;
             font-weight: bold;
             margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .stls-button-danger {
+            background-color: #dc3545;
+            color: white;
         }
 
         .stls-right {
@@ -143,20 +149,25 @@
 </head>
 
 <body>
+
 <%@include file="../include/header.jsp"%>
+
 <div class="stls-container">
     <div class="stls-left">
         <h2>안녕하세요<br>학생 ${studentName} 님</h2>
+
         <a href="/student/sendmsg"><button>쪽지 쓰기</button> </a>
-        <form action=/studlogout" method="post">
-            <button>로그아웃</button>
+        <form action="/studlogout" method="post">
+            <button class="stls-button stls-button-danger">로그아웃</button>
         </form>
     </div>
+
     <div class="stls-right">
         <div class="stls-tabs">
             <a href="/studentlist"><div class="stls-inactive">받은 메일함</div></a>
             <div class="stls-active">보낸 메일함</div>
         </div>
+
         <ul class="stls-messages">
             <c:set var="count" value="1"/>
             <c:forEach var="message" items="${messages}">
@@ -173,6 +184,7 @@
                 </li>
             </c:forEach>
         </ul>
+
         <nav aria-label="Page navigation">
             <ul class="stls-pagination pagination">
                 <c:if test="${pageInfo.prev}">
