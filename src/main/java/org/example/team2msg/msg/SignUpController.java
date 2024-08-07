@@ -31,6 +31,7 @@ public class SignUpController extends HttpServlet {
             // 중복 확인
             boolean isDuplicate = StudentDAO.INSTANCE.isDuplicate(sid, smail);
             if (isDuplicate) {
+                log.info("id or mail duplicated!!");
                 response.sendRedirect("/sign?error=duplicate"); // 중복된 경우 리다이렉트
                 return;
             }

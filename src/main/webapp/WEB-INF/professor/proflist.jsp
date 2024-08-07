@@ -113,6 +113,7 @@
         <h2>안녕하세요<br>${professorId} 교수님</h2>
         <h2><br>본인이메일: ${professorEmail}</h2>
         <a href="/professor/sendmsg"><button>쪽지 쓰기</button></a>
+        <a href="/professor/sendmsg"><button>전체쪽지쓰기</button></a>
     </div>
     <div class="pfl-right">
         <div class="pfl-tabs">
