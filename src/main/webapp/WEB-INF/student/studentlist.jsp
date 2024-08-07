@@ -166,9 +166,9 @@
 
     <ul class="stl-messages">
       <c:set var="count" value="1"/>
-      <c:forEach var="message" items="${messages}">
+      <c:forEach var="message" items="${messages}" varStatus="status">
         <li class="stl-message2">
-          <span class="stl-index">${count}</span>
+          <span class="stl-index">${total - (page - 1)*size - status.index}</span>
           <c:set var="count" value="${count + 1}"/>
           <span class="stl-name">${message.sender}</span>
           <span class="stl-title">

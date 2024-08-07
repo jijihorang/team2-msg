@@ -36,6 +36,11 @@ public class StudentListController extends HttpServlet {
 
         try {
             int total = MsgDAO.INSTANCE.getTotalCount(sid);
+            req.setAttribute("page", page);
+            req.setAttribute("size", size);
+            req.setAttribute("total", total);
+            log.info("total: {} size: {} page: {}",total,size,page);
+
             PageInfo pageInfo = new PageInfo(page, size, total);
 
             List<MsgVO> messages = MsgDAO.INSTANCE.getReceivedMessages(sid, page, size);
