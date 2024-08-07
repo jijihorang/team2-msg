@@ -5,54 +5,94 @@
     <meta charset="UTF-8">
     <title>쪽지 상세 정보</title>
     <style>
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
         }
-        .details {
+
+        .container {
+            display: flex;
+            width: 80%;
+            height: 80%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            background-color: #007bff;
+            padding: 40px;
+            width: 25%;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .sidebar h2 {
             margin-bottom: 20px;
         }
-        .buttons {
-            text-align: right;
+
+        .content {
+            background-color: #ffffff;
+            padding: 20px;
+            width: 75%;
         }
-        .buttons button {
-            margin-left: 10px;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+
+        .form-group {
+            margin-top: 10px;
         }
-        .reply-button {
-            background-color: #4CAF50;
-            color: white;
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
         }
-        .back-button {
-            background-color: #f44336;
-            color: white;
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
         }
+
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>쪽지 상세 정보</h2>
-    <div class="details">
-        <p><strong>발신자:</strong> ${message.sender}</p>
-        <p><strong>제목:</strong> ${message.title}</p>
-        <p><strong>내용:</strong> ${message.content}</p>
-        <p><strong>발송일:</strong> ${message.senddate}</p>
-        <p><strong>읽음:</strong> ${message.is_read ? '읽음' : '안읽음'}</p>
-        <p><strong>전체 공지:</strong> ${message.is_broadcast ? '예' : '아니오'}</p>
+    <div class="sidebar">
+        <h2>안녕하세요<br> ${professorId} 교수님</h2>
+
+        <div class="button-group">
+            <a href="/reply?id=${message.mno}"><button class="reply-button">Reply</button></a>
+            <a href="/proflist"><button type="button" class="secondary">List</button></a>
+        </div>
     </div>
-    <div class="buttons">
-        <a href="/professor/sendmsg?id=${message.mno}">
-            <button class="reply-button">답장</button>
-        </a>
-        <a href="/proflist">
-            <button class="back-button">나가기</button>
-        </a>
+
+    <div class="content">
+        <div class="form-group">
+            <label for="title">TITLE</label>
+            <input type="text" id="title" name="title" value="${message.title}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="sender">SENDER</label>
+            <input type="text" id="sender" name="sender" value="${message.sender}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="date">DATE</label>
+            <input type="text" id="date" name="date" value="${message.senddate}" readonly>
+        </div>
+        <div class="form-group">
+            <label for="content">CONTENT</label>
+            <textarea id="content" name="content" rows="10" readonly>${message.content}</textarea>
+        </div>
     </div>
 </div>
 </body>

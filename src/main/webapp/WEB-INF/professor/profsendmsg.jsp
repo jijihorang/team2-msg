@@ -39,6 +39,39 @@
             margin-bottom: 20px;
         }
 
+        .pem-left .button-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .pem-left button,
+        .pem-left a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .pem-left button {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .pem-left a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: white;
+            color: black;
+        }
+
         .pem-right {
             background-color: #ffffff;
             padding: 20px;
@@ -56,75 +89,62 @@
         }
 
         .pem-input-group input,
-        .pem-input-group textarea {
-            width: 95%;
+        .pem-input-group textarea,
+        .pem-input-group select {
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             margin-bottom: 20px;
+            box-sizing: border-box;
         }
 
-        .pem-button-group {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .pem-button-group button {
-            margin-top: 15px;
-            margin-left: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .pem-button-group button.primary {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .pem-button-group button.secondary {
-            background-color: #ccc;
-            color: black;
-        }
     </style>
 </head>
 <body>
+
 <%@include file="../include/header.jsp"%>
+
 <div class="pem-container">
     <div class="pem-left">
         <h2>안녕하세요<br>교수 ${professorId}님</h2>
-        <form action="/proflogout" method="post">
-            <button>로그아웃</button>
-        </form>
+        <div class="button-container">
+            <button type="submit" class="primary">Send</button>
+            <a href="/proflist"><span>List</span></a>
+        </div>
     </div>
+
     <div class="pem-right">
         <form action="/professor/sendmsg" method="post">
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
-                <input type="text" id="title" name="title" required value="${originalTitle != null ? originalTitle : ''}">
+                <input type="text" id="title" name="title" required>
             </div>
+
             <div class="pem-input-group">
                 <label for="receiver">RECEIVER</label>
-                <select id="receiver" name="receiver" required>
-                    <option value="" selected disabled>Select Student</option>
-                    <c:forEach var="student" items="${studentList}">
-                        <option value="${student}" ${replyTo != null && replyTo == student ? 'selected' : ''}>${student}</option>
-                    </c:forEach>
+                <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
+                    <option value="" selected disabled></option>
+                    <optgroup label="교수목록">
+                        <c:forEach var="professor" items="${professorList}">
+                            <option value="${professor}">${professor}</option>
+                        </c:forEach>
+                    </optgroup>
+                    <optgroup label="학생목록">
+                        <c:forEach var="student" items="${studentList}">
+                            <option value="${student}">${student}</option>
+                        </c:forEach>
+                    </optgroup>
                 </select>
             </div>
+
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
-                <textarea id="content" name="content" rows="10" required>${originalContent != null ? originalContent : ''}</textarea>
+                <textarea id="content" name="content" rows="10" required></textarea>
             </div>
-            <div class="pem-button-group">
-                <button type="submit" class="primary">Send</button>
-                <a href="/proflist"><button type="button" class="secondary">List</button></a>
-            </div>
+
         </form>
     </div>
 </div>
 </body>
-
 </html>

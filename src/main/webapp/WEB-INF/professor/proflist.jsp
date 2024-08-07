@@ -36,10 +36,11 @@
         }
 
         .pfl-left h2 {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
-        .pfl-left button {
+        .pfl-button {
+            display: inline-block;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
@@ -48,6 +49,24 @@
             color: black;
             font-weight: bold;
             margin-bottom: 10px;
+            text-align: center;
+            text-decoration: none;
+            width: 150px; /* 고정된 너비를 설정 */
+        }
+
+        .pfl-button-primary {
+            background-color: white;
+            color: black;
+        }
+
+        .pfl-button-secondary {
+            background-color: white;
+            color: black;
+        }
+
+        .pfl-button-danger {
+            background-color: #dc3545;
+            color: white;
         }
 
         .pfl-right {
@@ -79,7 +98,7 @@
         }
 
         .pfl-tabs a {
-            text-decoration: none; /* 모든 a 태그의 밑줄 없앰 */
+            text-decoration: none;
         }
 
         .pfl-messages {
@@ -104,6 +123,11 @@
 
         .pfl-message2 .pfl-title {
             width: 40%;
+        }
+
+        .pfl-message2 .pfl-date {
+            width: 15%;
+            white-space: nowrap;
         }
 
         .pfl-message2 .pfl-status {
@@ -142,15 +166,17 @@
     </style>
 </head>
 <body>
+
 <%@include file="../include/header.jsp"%>
+
 <div class="pfl-container">
     <div class="pfl-left">
         <h2>안녕하세요<br>${professorId} 교수님</h2>
-        <h2><br>본인이메일: ${professorEmail}</h2>
-        <a href="/professor/sendmsg"><button>쪽지 쓰기</button></a>
-        <a href="/professor/broadcastmsg"><button>전체쪽지쓰기</button></a>
+
+        <a href="/professor/sendmsg" class="pfl-button pfl-button-primary">쪽지 쓰기</a>
+        <a href="/professor/broadcastmsg" class="pfl-button pfl-button-secondary">전체쪽지쓰기</a>
         <form action="/proflogout" method="post">
-            <button>로그아웃</button>
+            <button type="submit" class="pfl-button pfl-button-danger">로그아웃</button>
         </form>
     </div>
     <div class="pfl-right">
@@ -166,6 +192,9 @@
                     <span class="pfl-title">
                         <a href="/detail?messageId=${message.mno}">${message.title}</a>
                     </span>
+                    <span class="pfl-date">
+                        <fmt:formatDate value="${message.senddate}" pattern="yyyy-MM-dd"/>
+                    </span>
                     <span class="pfl-status">
                         <c:choose>
                             <c:when test="${message.is_read}">
@@ -179,6 +208,7 @@
                 </li>
             </c:forEach>
         </ul>
+
         <nav aria-label="Page navigation">
             <ul class="pagination">
                 <c:if test="${pageInfo.prev}">

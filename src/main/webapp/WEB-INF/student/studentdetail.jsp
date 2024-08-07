@@ -63,24 +63,8 @@
             box-sizing: border-box;
         }
 
-        .button-group {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
 
-        .button-group button {
-            margin-left: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
 
-        .button-group button.secondary {
-            background-color: #ccc;
-            color: black;
-        }
     </style>
 </head>
 <body>
@@ -88,6 +72,7 @@
     <div class="sidebar">
         <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
         <div class="button-group">
+            <a href="/reply?id=${message.mno}"><button class="reply-button">Reply</button></a>
             <a href="/studentlist"><button type="button" class="secondary">List</button></a>
         </div>
     </div>

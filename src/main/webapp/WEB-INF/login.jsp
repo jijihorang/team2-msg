@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
+    <title>Student login</title>
     <style>
         body {
             margin: 0;
@@ -70,11 +70,13 @@
             margin-bottom: 5px;
         }
 
-        input {
+        input,
+        button {
             width: 100%;
             padding: 10px;
             border: none;
             border-radius: 5px;
+            box-sizing: border-box; /* 버튼과 입력 필드의 크기를 동일하게 설정 */
         }
 
         button {
@@ -97,6 +99,7 @@
             border: 1px solid white;
             color: white;
         }
+
     </style>
     <link rel="icon" href="data:,">
 </head>
@@ -111,7 +114,7 @@
         </div>
     </div>
     <div class="right">
-        <h1>Welcome !</h1>
+        <h1>Student Welcome !</h1>
         <form action="/login" method="post">
             <div class="input-group">
                 <label for="sid">ID</label>

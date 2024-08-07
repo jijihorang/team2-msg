@@ -40,15 +40,37 @@
             margin-bottom: 20px;
         }
 
-        .sem-left button {
+        .sem-left .button-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+        }
+
+        .sem-left button,
+        .sem-left a {
+            text-decoration: none;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .sem-left button.primary {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .sem-left a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: white;
             color: black;
-            font-weight: bold;
-            margin-bottom: 10px;
         }
 
         .sem-right {
@@ -58,7 +80,6 @@
         }
 
         .sem-input-group {
-            margin-top: 10px;
             margin-bottom: 15px;
         }
 
@@ -78,58 +99,40 @@
             box-sizing: border-box;
         }
 
-        .sem-button-group {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .sem-button-group button {
-            margin-top: 15px;
-            margin-left: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .sem-button-group button.primary {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .sem-button-group button.secondary {
-            background-color: #ccc;
-            color: black;
-        }
-
         .error-message {
             color: red;
             text-align: center;
             margin-bottom: 20px;
         }
     </style>
+
     <script>
         function setReceiver(value) {
             document.getElementById('receiver').value = value;
         }
     </script>
+
 </head>
 <body>
+
 <%@include file="../include/header.jsp"%>
+
 <div class="sem-container">
     <div class="sem-left">
         <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
-        <form action="/studlogout" method="post">
-            <button>로그아웃</button>
-        </form>
+        <div class="button-container">
+            <button type="submit" class="primary">Send</button>
+            <a href="/studentlist"><span>List</span></a>
+        </div>
     </div>
+
     <div class="sem-right">
         <form action="/student/sendmsg" method="post">
             <div class="sem-input-group">
                 <label for="title">TITLE</label>
                 <input type="text" id="title" name="title" required>
             </div>
+
             <div class="sem-input-group">
                 <label for="receiver">RECEIVER</label>
                 <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
@@ -146,14 +149,12 @@
                     </optgroup>
                 </select>
             </div>
+
             <div class="sem-input-group">
                 <label for="content">CONTENT</label>
                 <textarea id="content" name="content" rows="10" required></textarea>
             </div>
-            <div class="sem-button-group">
-                <button type="submit" class="primary">Send</button>
-                <a href="/studentlist"><button type="button" class="secondary">List</button></a>
-            </div>
+
             <c:if test="${not empty param.error}">
                 <div class="error-message">${param.error}</div>
             </c:if>
