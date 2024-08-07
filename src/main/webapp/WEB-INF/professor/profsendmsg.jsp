@@ -95,32 +95,28 @@
 <div class="pem-container">
     <div class="pem-left">
         <h2>안녕하세요<br>교수 ${professorId}님</h2>
+        <form action="/proflogout" method="post">
+            <button>로그아웃</button>
+        </form>
     </div>
     <div class="pem-right">
         <form action="/professor/sendmsg" method="post">
             <div class="pem-input-group">
                 <label for="title">TITLE</label>
-                <input type="text" id="title" name="title" required>
+                <input type="text" id="title" name="title" required value="${originalTitle != null ? originalTitle : ''}">
             </div>
-            <div class="sem-input-group">
+            <div class="pem-input-group">
                 <label for="receiver">RECEIVER</label>
-                <select id="receiver" name="receiver" onchange="setReceiver(this.value)" required>
-                    <option value="" selected disabled></option>
-                    <optgroup label="교수목록">
-                        <c:forEach var="professor" items="${professorList}">
-                            <option value="${professor}">${professor}</option>
-                        </c:forEach>
-                    </optgroup>
-                    <optgroup label="학생목록">
-                        <c:forEach var="student" items="${studentList}">
-                            <option value="${student}">${student}</option>
-                        </c:forEach>
-                    </optgroup>
+                <select id="receiver" name="receiver" required>
+                    <option value="" selected disabled>Select Student</option>
+                    <c:forEach var="student" items="${studentList}">
+                        <option value="${student}" ${replyTo != null && replyTo == student ? 'selected' : ''}>${student}</option>
+                    </c:forEach>
                 </select>
             </div>
             <div class="pem-input-group">
                 <label for="content">CONTENT</label>
-                <textarea id="content" name="content" rows="10" required></textarea>
+                <textarea id="content" name="content" rows="10" required>${originalContent != null ? originalContent : ''}</textarea>
             </div>
             <div class="pem-button-group">
                 <button type="submit" class="primary">Send</button>
@@ -130,4 +126,5 @@
     </div>
 </div>
 </body>
+
 </html>
