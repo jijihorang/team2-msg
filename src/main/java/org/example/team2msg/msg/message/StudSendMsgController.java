@@ -10,6 +10,7 @@ import lombok.extern.log4j.Log4j2;
 import java.io.IOException;
 import java.util.List;
 import jakarta.servlet.http.HttpSession;
+import org.example.team2msg.msg.message.dao.MsgDAO;
 import org.example.team2msg.msg.student.StudentVO;
 
 @Log4j2

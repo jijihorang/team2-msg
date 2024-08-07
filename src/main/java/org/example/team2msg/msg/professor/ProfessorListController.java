@@ -7,7 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.log4j.Log4j2;
-import org.example.team2msg.msg.message.MsgDAO;
+import org.example.team2msg.msg.message.dao.MsgDAO;
 import org.example.team2msg.msg.message.MsgVO;
 import java.io.IOException;
 import java.util.List;
