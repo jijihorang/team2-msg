@@ -69,7 +69,8 @@ public enum MsgDAO {
                     tbl_message
                 where
                     mno = ? and receiver = ?
-                """;
+                """
+                ;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement ps = con.prepareStatement(sql);
@@ -94,44 +95,56 @@ public enum MsgDAO {
                 .is_broadcast(rs.getBoolean("is_broadcast"))
                 .build();
 
+        updateReadStatus(mno);
+
         return Optional.of(detail);
     }
 
-    // 쪽지 발송
-    public Integer sendMessage(String receiver, String title, String content) throws Exception{
-
-        // insert
-        String sql = """
-                insert into tbl_message (receiver, title, content)
-                values (?, ?, ?)
-                """;
+    private void updateReadStatus(Integer mno) throws Exception {
+        String updateSql = """
+            update tbl_message
+            set 
+                is_read = true
+            where 
+                mno = ?
+        """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
-        @Cleanup PreparedStatement ps = con.prepareStatement(sql);
+        @Cleanup PreparedStatement ps = con.prepareStatement(updateSql);
 
-//        ps.setString(1, sender);
-        ps.setString(1, receiver);
-        ps.setString(2, title);
-        ps.setString(3, content);
+        ps.setInt(1, mno);
+        ps.executeUpdate();
+    }
 
-        int count = ps.executeUpdate(); // 여기서 자꾸 오류남
+
+    // 메시지 전송
+    public Integer sendMessage(MsgVO msg) throws Exception {
+        String query = """
+            insert into tbl_message (receiver, title, content, sender, senddate, is_read, is_broadcast)
+            values (?, ?, ?, ?, NOW(), ?, ?)
+            """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setString(1, msg.getReceiver());
+        pst.setString(2, msg.getTitle());
+        pst.setString(3, msg.getContent());
+        pst.setString(4, msg.getSender());
+        pst.setBoolean(5, msg.isIs_read());
+        pst.setBoolean(6, msg.isIs_broadcast());
+
+        int count = pst.executeUpdate();
 
         if (count != 1) {
-            throw new Exception();
+            throw new Exception("Message sending failed");
         }
 
-        ps = con.prepareStatement("select last_insert_id()");
+        pst = con.prepareStatement("select last_insert_id()");
+        @Cleanup ResultSet rst = pst.executeQuery();
 
-        @Cleanup ResultSet rs = ps.executeQuery();
-
-        if( ! rs.next() ){
-            throw new Exception();
-        }
-
-        Integer mno = rs.getInt(1);
-
-        return mno;
-
+        rst.next();
+        return rst.getInt(1);
     }
 
     // 학생 목록 가져오기
@@ -168,34 +181,76 @@ public enum MsgDAO {
         return professorList;
     }
 
-    // 메시지 전송
-    public Integer sendMessage2(MsgVO msg) throws Exception {
+    // 받은 쪽지 리스트
+    public List<MsgVO> getReceivedMessages(String receiver) throws Exception {
         String query = """
-            insert into tbl_message (receiver, title, content, sender, senddate, is_read, is_broadcast)
-            values (?, ?, ?, ?, NOW(), ?, ?)
+            select mno, sender, receiver, title, content, senddate, is_read, is_broadcast
+            from tbl_message
+            where receiver = ?
+            order by senddate desc
             """;
 
         @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
         @Cleanup PreparedStatement pst = con.prepareStatement(query);
 
-        pst.setString(1, msg.getReceiver());
-        pst.setString(2, msg.getTitle());
-        pst.setString(3, msg.getContent());
-        pst.setString(4, msg.getSender());
-        pst.setBoolean(5, msg.isIs_read());
-        pst.setBoolean(6, msg.isIs_broadcast());
+        pst.setString(1, receiver);
 
-        int count = pst.executeUpdate();
+        @Cleanup ResultSet rs = pst.executeQuery();
 
-        if (count != 1) {
-            throw new Exception("Message sending failed");
+        List<MsgVO> messages = new ArrayList<>();
+
+        while (rs.next()) {
+            MsgVO msg = MsgVO.builder()
+                    .mno(rs.getInt("mno"))
+                    .sender(rs.getString("sender"))
+                    .receiver(rs.getString("receiver"))
+                    .title(rs.getString("title"))
+                    .content(rs.getString("content"))
+                    .senddate(rs.getTimestamp("senddate"))
+                    .is_read(rs.getBoolean("is_read"))
+                    .is_broadcast(rs.getBoolean("is_broadcast"))
+                    .build();
+
+            messages.add(msg);
         }
 
-        pst = con.prepareStatement("select last_insert_id()");
-        @Cleanup ResultSet rst = pst.executeQuery();
+        return messages;
+    }
 
-        rst.next();
-        return rst.getInt(1);
+    // 보낸 쪽지 리스트
+    public List<MsgVO> getSentMessages(String sender) throws Exception {
+        String query = """
+            select mno, sender, receiver, title, content, senddate, is_read, is_broadcast
+            from tbl_message
+            where sender = ?
+            order by senddate desc
+            """;
+
+        @Cleanup Connection con = ConnectionUtil.INSTANCE.getDs().getConnection();
+        @Cleanup PreparedStatement pst = con.prepareStatement(query);
+
+        pst.setString(1, sender);
+
+        @Cleanup ResultSet rs = pst.executeQuery();
+
+        List<MsgVO> messages = new ArrayList<>();
+
+        while (rs.next()) {
+            MsgVO msg = MsgVO.builder()
+                    .mno(rs.getInt("mno"))
+                    .sender(rs.getString("sender"))
+                    .receiver(rs.getString("receiver"))
+                    .title(rs.getString("title"))
+                    .content(rs.getString("content"))
+                    .senddate(rs.getTimestamp("senddate"))
+                    .is_read(rs.getBoolean("is_read"))
+                    .is_broadcast(rs.getBoolean("is_broadcast"))
+                    .build();
+
+            messages.add(msg);
+        }
+
+        return messages;
     }
 
 }

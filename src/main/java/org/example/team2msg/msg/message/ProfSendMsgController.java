@@ -27,24 +27,24 @@ public class ProfSendMsgController extends HttpServlet {
 
         HttpSession session = req.getSession();
 
-        ProfessorVO professor = (ProfessorVO) session.getAttribute("professor");
+        if(session == null || session.getAttribute("professorId")==null){
+            resp.sendRedirect("/proflogin");
+            return;
+        }
+
+        ProfessorVO professor = (ProfessorVO)session.getAttribute("professor");
 
         if (professor == null) {
-            resp.sendRedirect(req.getContextPath() + "/proflogin?error=Not logged in");
+            log.info("professor is not exist");
+            resp.sendRedirect("/proflogin");
             return;
         }
 
         String sender = professor.getPid();
-
         String receiver = req.getParameter("receiver");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-
-        System.out.println("sender = " + sender);
-        System.out.println("sender = " + receiver);
-        System.out.println("title = " + title);
-        System.out.println("content = " + content);
-
+        log.info(sender +" "+ receiver +" "+ title +" "+ content);
         boolean isRead = false;
         boolean isBroadcast = false;
 
@@ -57,15 +57,12 @@ public class ProfSendMsgController extends HttpServlet {
                     .is_read(isRead)
                     .is_broadcast(isBroadcast)
                     .build();
-
-            MsgDAO.INSTANCE.sendMessage2(msg); // 여기서 자꾸 오류남
+            MsgDAO.INSTANCE.sendMessage(msg);
             resp.sendRedirect(req.getContextPath() + "/proflist");
-
         } catch (Exception e) {
-            log.error("error", e);
-            resp.sendRedirect(req.getContextPath() + "/professor/sendmsg?error=Message sending failed");
-
+            log.error("Message sending failed", e);
+            req.setAttribute("error", "Message sending failed. Please try again.");
+            req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
         }
-
     }
 }

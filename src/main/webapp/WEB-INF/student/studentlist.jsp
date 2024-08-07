@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-  <title>Student List Page</title>
+  <title>Received Messages</title>
   <style>
     body {
       margin: 0;
@@ -113,26 +113,20 @@
 <body>
 <div class="stl-container">
   <div class="stl-left">
-    <h2>안녕하세요<br>학생 ${student.name} 님</h2>
+    <h2>안녕하세요<br>학생 ${studentName} 님</h2>
     <a href="/student/sendmsg"><button>쪽지 쓰기</button></a>
   </div>
   <div class="stl-right">
     <div class="stl-tabs">
-      <c:choose>
-        <c:when test="${messageType == 'received'}">
-          <div class="stl-active">받은 메일함</div>
-          <a href="/studentlist/sent"><div class="stl-inactive">보낸 메일함</div></a>
-        </c:when>
-        <c:otherwise>
-          <a href="/studentlist"><div class="stl-inactive">받은 메일함</div></a>
-          <div class="stl-active">보낸 메일함</div>
-        </c:otherwise>
-      </c:choose>
+      <div class="stl-active">받은 메일함</div>
+      <a href="/studentlist/sent"><div class="stl-inactive">보낸 메일함</div></a>
     </div>
     <ul class="stl-messages">
+      <c:set var="count" value="1"/>
       <c:forEach var="message" items="${messages}">
         <li class="stl-message2">
-          <span class="stl-index">${message.mno}</span>
+          <span class="stl-index">${count}</span>
+          <c:set var="count" value="${count + 1}"/>
           <span class="stl-name">${message.sender}</span>
           <span class="stl-title">${message.title}</span>
           <span class="stl-status">[ <c:choose>

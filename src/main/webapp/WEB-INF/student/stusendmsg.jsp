@@ -106,7 +106,7 @@
 <body>
 <div class="sem-container">
     <div class="sem-left">
-        <h2>안녕하세요<br>학생 000 님</h2>
+        <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
     </div>
     <div class="sem-right">
         <form action="/student/sendmsg" method="post">
