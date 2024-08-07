@@ -131,7 +131,7 @@
     <div class="sem-right">
         <div class="sem-input-group">
             <label for="title">TITLE</label>
-            <input type="text" id="title" name="title" required>
+            <input type="text" id="title" name="title" value="${not empty originalMsg ? originalMsg.title : ''}" required>
         </div>
 
         <div class="sem-input-group">
@@ -140,12 +140,12 @@
                 <option value="" selected disabled></option>
                 <optgroup label="Students">
                     <c:forEach var="student" items="${studentList}">
-                        <option value="${student}">${student}</option>
+                        <option value="${student}"  ${student eq originalMsg.receiver ? 'selected' : ''}>${student}</option>
                     </c:forEach>
                 </optgroup>
                 <optgroup label="Professors">
                     <c:forEach var="professor" items="${professorList}">
-                        <option value="${professor}">${professor}</option>
+                        <option value="${professor}" ${professor eq originalMsg.receiver ? 'selected' : ''}>${professor}</option>
                     </c:forEach>
                 </optgroup>
             </select>
@@ -153,7 +153,7 @@
 
         <div class="sem-input-group">
             <label for="content">CONTENT</label>
-            <textarea id="content" name="content" rows="10" required></textarea>
+            <textarea id="content" name="content" rows="10" required>${not empty originalMsg ? originalMsg.content : ''}</textarea>
         </div>
 
         <c:if test="${not empty param.error}">

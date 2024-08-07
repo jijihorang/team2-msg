@@ -100,8 +100,9 @@
 <div class="container">
     <div class="sidebar">
         <h2>안녕하세요<br>학생 ${student.sid} 님</h2>
+
         <div class="button-group">
-            <a href="/reply?id=${message.mno}"><button class="reply-button">Reply</button></a>
+            <a href="/student/sendmsg?replyId=${message.mno}"><button class="reply-button">Reply</button></a>
             <a href="/studentlist"><button type="button" class="secondary">List</button></a>
         </div>
     </div>

@@ -34,6 +34,14 @@ public class StudSendMsgController extends HttpServlet {
             req.setAttribute("professorList", professorList);
             req.setAttribute("student", student);
 
+            // 메시지 정보가 쿼리스트링으로 전달된 경우 처리
+            String replyToId = req.getParameter("replyId");
+            if (replyToId != null && !replyToId.isEmpty()) {
+                MsgVO originalMsg = MsgDAO.INSTANCE.getMessageById(Integer.parseInt(replyToId));
+                req.setAttribute("originalMsg", originalMsg);
+            }
+
+
             req.getRequestDispatcher("/WEB-INF/student/stusendmsg.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new ServletException("Error retrieving student or professor list", e);
