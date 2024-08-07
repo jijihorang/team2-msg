@@ -24,11 +24,18 @@ public class ProfSendMsgController extends HttpServlet {
 
         try {
             List<String> studentList = MsgDAO.INSTANCE.getStudentList();
+            List<String> professorList = MsgDAO.INSTANCE.getProfessorList();
 
             HttpSession session = req.getSession();
             ProfessorVO professor = (ProfessorVO) session.getAttribute("professor");
+            if (professor == null) {
+                resp.sendRedirect(req.getContextPath() + "/proflogin?error=Not logged in");
+                return;
+            }
 
             req.setAttribute("studentList", studentList);
+            req.setAttribute("professorList", professorList);
+            req.setAttribute("professor", professor);
 
             req.getRequestDispatcher("/WEB-INF/professor/profsendmsg.jsp").forward(req, resp);
         } catch (Exception e) {

@@ -17,7 +17,7 @@ import java.util.List;
 public class ProfessorListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
+        HttpSession session = req.getSession();
 
         if (session == null) {
             log.info("Session not found, redirecting to login");
