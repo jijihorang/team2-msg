@@ -73,6 +73,10 @@
             color: black;
         }
 
+        .sem-left a .secondary {
+            background-color: white;
+        }
+
         .sem-right {
             background-color: #ffffff;
             padding: 20px;
