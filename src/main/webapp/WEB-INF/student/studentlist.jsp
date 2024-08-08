@@ -18,8 +18,8 @@
 
     .stl-container {
       display: flex;
-      width: 80%;
-      height: 80%;
+      width: 85%;
+      height: 85%;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
 
@@ -124,7 +124,7 @@
     .stls-pagination {
       display: flex;
       justify-content: center;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .stls-pagination .page-item {
