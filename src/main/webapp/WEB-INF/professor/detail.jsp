@@ -133,6 +133,10 @@
             <input type="text" id="sender" name="sender" value="${message.sender}" readonly>
         </div>
         <div class="form-group">
+            <label for="is_broadcast">공지사항</label>
+            <input type="text" id="is_broadcast" name="is_broadcast" value="${message.is_broadcast}" readonly>
+        </div>
+        <div class="form-group">
             <label for="date">DATE</label>
             <input type="text" id="date" name="date" value="${message.senddate}" readonly>
         </div>
