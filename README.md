@@ -1,6 +1,6 @@
 # 학급 메신저 톡 서비스 📩
 
-## <span style="color:blue;">개요</span>  
+<p>$\bf{\large{\color{#6580DD}두꺼운\ 글씨체,\ 큰글씨,\ 파란색}}$개요</p> 
 **주제:** Model 2 기반 JSP, Servlet, Session, JDBC 등을 활용한 예제 개발  
 **목표:** 웹 기반의 수업 관련 공지, JSP, Servlet, Java JDK, Apache Tomcat, MariaDB를 활용
 
