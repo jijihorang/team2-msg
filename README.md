@@ -1,4 +1,4 @@
-# 학급 메신저 톡 서비스 📩
+## 학급 메신저 톡 서비스 📩
 
 ## <span style="color:green">개요</span>  
 **주제:** Model 2 기반 JSP, Servlet, Session, JDBC 등을 활용한 예제 개발  
